@@ -18,6 +18,8 @@ module.exports = {
         unnamedComponents: 'arrow-function'
       }
     ],
-    'arrow-body-style': ['error', 'always']
+    'arrow-body-style': 'off',
+    'react/prop-types': 'off',
+    'react/destructuring-assignment': 'off'
   }
 };
