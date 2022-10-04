@@ -2,7 +2,8 @@ import React from 'react';
 import styled from '@emotion/styled';
 import ResponsiveAppBar from '../components/common/Appbar/Appbar';
 import CustomEditor from '../components/CustomEditor/CustomEditor';
-import LeftBlock from '../components/LeftBlock/LeftBlock';
+import LeftBlock from '../components/Main/LeftBlock/LeftBlock';
+import RightBlock from '../components/Main/RightBlock/RightBlock';
 
 const Questions = () => {
   return (
@@ -18,8 +19,7 @@ const Questions = () => {
         </ColumnContainer>
 
         <ColumnContainer>
-          <h1>Home</h1>
-          <h3>Test</h3>
+          <RightBlock />
         </ColumnContainer>
       </MainContainer>
     </MainWrapper>

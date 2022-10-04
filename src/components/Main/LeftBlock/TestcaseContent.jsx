@@ -2,7 +2,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import styled from '@emotion/styled';
-import TestSuccessContext from '../../context/TestSuccessContext';
+import TestSuccessContext from '../../../context/TestSuccessContext';
 
 const TestcaseContent = ({ input = '', output = '' }) => {
   const success = React.useContext(TestSuccessContext);

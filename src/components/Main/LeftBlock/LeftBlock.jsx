@@ -2,11 +2,11 @@ import * as React from 'react';
 import { Box } from '@mui/material';
 import styled from '@emotion/styled';
 
-import Title from './Title';
+import Title from '../Title';
 import SubTitle from './SubTitle';
 import Content from './Content';
 import TestcaseContent from './TestcaseContent';
-import TestSuccessContext from '../../context/TestSuccessContext';
+import TestSuccessContext from '../../../context/TestSuccessContext';
 
 const testQuestion =
   '피보나치 수는 0과 1로 시작하며, 다음 피보나치 수는 바로 앞의 두 피보나치 수의 합이 된다. n = 0, 1...에 해당하는 피보나치 수는 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, ...이다. n번째 피보나치 수를 리턴하시오.';
@@ -29,7 +29,7 @@ const LeftBlock = () => {
       <Content content={testConstraint} />
 
       <Title title="테스트케이스" />
-      
+
       <Container>
         {testcase.map((item) => (
           <TestSuccessContext.Provider value={item.success} key={item.title}>
