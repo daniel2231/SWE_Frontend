@@ -6,7 +6,7 @@ import styled from '@emotion/styled';
 const CustomEditor = () => {
   return (
     <>
-      <Editor defaultLanguage="javascript" defaultValue="// some comment" />
+      <Editor defaultLanguage="javascript" defaultValue="// 코드를 입력하세요." />
       <CustomFooter>
         <p>Footer</p>
         <p>Footer</p>

@@ -2,19 +2,21 @@ import React from 'react';
 import styled from '@emotion/styled';
 import ResponsiveAppBar from '../components/common/Appbar/Appbar';
 import CustomEditor from '../components/CustomEditor/CustomEditor';
+import LeftBlock from '../components/LeftBlock/LeftBlock';
 
 const Questions = () => {
   return (
     <MainWrapper>
-      <ResponsiveAppBar />
+      <ResponsiveAppBar menuDisplay />
       <MainContainer>
         <ColumnContainer>
-          <h1>Home</h1>
-          <h3>Test</h3>
+          <LeftBlock />
         </ColumnContainer>
+
         <ColumnContainer>
           <CustomEditor />
         </ColumnContainer>
+
         <ColumnContainer>
           <h1>Home</h1>
           <h3>Test</h3>

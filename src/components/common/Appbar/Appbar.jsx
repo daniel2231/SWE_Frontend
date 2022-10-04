@@ -13,14 +13,14 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import SettingsIcon from '@mui/icons-material/Settings';
-
+import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import Drawer from '@mui/material/Drawer';
 import ToggleBtn from '../RightDrawer/ToggleBtn';
- 
- 
+
 const pages = ['코딩테스트 연습'];
 
-const ResponsiveAppBar = () => {
+const ResponsiveAppBar = ({ menuDisplay = false }) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
@@ -122,9 +122,10 @@ const ResponsiveAppBar = () => {
           >
             LOGO
           </Typography>
+
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
-              <Link to="/questions">
+              <Link to="/questions" style={{ textDecoration: 'none' }}>
                 <Button
                   key={page}
                   onClick={handleCloseNavMenu}
@@ -135,6 +136,71 @@ const ResponsiveAppBar = () => {
               </Link>
             ))}
           </Box>
+          {menuDisplay && (
+            <>
+              <Box
+                sx={{
+                  flexGrow: 1,
+                  display: { xs: 'none', md: 'flex' },
+                  justifyContent: 'space-evenly'
+                }}
+              >
+                <Typography
+                  sx={{
+                    flexGrow: 0,
+                    minWidth: 250,
+                    display: { xs: 'none', lg: 'flex' },
+                    justifyContent: 'center',
+                    backgroundColor: '#D1D7E5',
+                    padding: '1px 20px',
+                    borderRadius: '5px',
+                    color: 'black',
+                    fontWeight: 'bold'
+                  }}
+                >
+                  소프트웨어공학
+                </Typography>
+                <Box
+                  sx={{
+                    flexGrow: 0,
+                    minWidth: 250,
+                    maxWidth: 'lg',
+                    display: { xs: 'none', lg: 'flex' },
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    backgroundColor: '#D1D7E5',
+                    padding: '1px 20px',
+                    borderRadius: '5px',
+                    color: 'black'
+                  }}
+                >
+                  <ArrowLeftIcon sx={{ cursor: 'pointer' }} />
+                  <Typography sx={{ fontWeight: 'bold' }}>week 1: 피보나치 수</Typography>
+                  <ArrowRightIcon sx={{ cursor: 'pointer' }} />
+                </Box>
+              </Box>
+
+              <Box
+                sx={{
+                  flexGrow: 1,
+                  display: { xs: 'none', md: 'flex' },
+                  justifyContent: 'flex-end'
+                }}
+              >
+                <Box
+                  sx={{
+                    backgroundColor: '#D1D7E5',
+                    padding: '1px 20px',
+                    borderRadius: '5px',
+                    color: 'black',
+                    fontWeight: 'bold'
+                  }}
+                >
+                  2d 30h 30m 남음
+                </Box>
+              </Box>
+            </>
+          )}
 
           <Box sx={{ flexGrow: 0 }}>
             <IconButton
