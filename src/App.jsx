@@ -25,13 +25,19 @@ const App = () => {
         palette: {
           mode,
           primary: {
-            main: '#006828',
+            main: '#1C395A',
             contrastText: 'rgba(255,255,255,0.87)'
           },
           secondary: {
             main: '#d4af37',
             contrastText: 'rgba(0,0,0,0.87)'
           }
+        },
+        typography: {
+          fontFamily: '"Noto Sans KR", sans-serif',
+          fontWeightLight: 300,
+          fontWeightRegular: 500,
+          fontWeightBold: 700
         }
       }),
     [mode]

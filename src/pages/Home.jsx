@@ -1,15 +1,51 @@
 import React from 'react';
+
 import styled from '@emotion/styled';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+
 import ResponsiveAppBar from '../components/common/Appbar/Appbar';
+import HomeBox from '../components/Home/HomeBox';
+import HomeCard from '../components/Home/HomeCard';
 
 const Home = () => {
   return (
     <>
       <ResponsiveAppBar />
-      <MainContainer>
-        <h1>Home</h1>
-        <h3>Test</h3>
-      </MainContainer>
+      <Container>
+        <MainContainer>
+          <HomeBox
+            title="안녕하세요, 👋"
+            content="우리는 소공개 3조이다 환영한다. 우리는 소공개 3조이다 환영한다. 우리는 소공개 3조이다 환영한다. 우리는 소공개 3조이다 환영한다. 우리는 소공개 3조이다 환영한다. 우리는 소공개 3조이다 환영한다."
+          />
+
+          <HomeBox
+            title="지금 시작해보세요!"
+            content="최근 많은 유저들이 도전하고 있는 단계입니다."
+          />
+          <Grid
+            container
+            rowSpacing={{ xs: 2, sm: 2, md: 0, lg: 0 }}
+            columnSpacing={{ xs: 0, sm: 0, md: 2, lg: 2 }}
+            maxWidth="lg"
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
+          >
+            <Grid item xs={8} sm={8} md={4} lg={4}>
+              <HomeCard circleTitle="초급" stepTitle="초급 1단계" linkTo="/" />
+            </Grid>
+            <Grid item xs={8} sm={8} md={4} lg={4}>
+              <HomeCard circleTitle="중급" stepTitle="중급 1단계" linkTo="/" />
+            </Grid>
+            <Grid item xs={8} sm={8} md={4} lg={4}>
+              <HomeCard circleTitle="고급" stepTitle="고급 1단계" linkTo="/" />
+            </Grid>
+          </Grid>
+        </MainContainer>
+      </Container>
     </>
   );
 };
@@ -17,8 +53,9 @@ const Home = () => {
 const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: left;
+  justify-content: left;
+  padding: 160px 20%;
   height: 100vh;
 `;
 
