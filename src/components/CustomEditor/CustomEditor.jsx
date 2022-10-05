@@ -9,6 +9,7 @@ import FolderSharpIcon from '@mui/icons-material/FolderSharp';
 import RestartAltSharpIcon from '@mui/icons-material/RestartAltSharp';
 import ContentCopyOutlinedIcon from '@mui/icons-material/ContentCopyOutlined';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
+import { getItem, setItem } from './localStorage';
 
 const skeletonCode = 'function solution(n){\n  const test=0;\n}';
 const saveLabelNumber = [1, 2, 3];
@@ -20,9 +21,9 @@ const CustomEditor = () => {
   };
 
   const [editorContent, setEditorContent] = React.useState({
-    1: '',
-    2: '',
-    3: ''
+    1: skeletonCode,
+    2: skeletonCode,
+    3: skeletonCode
   });
   const [saveContent, setSaveContent] = React.useState({
     1: '',
@@ -30,12 +31,35 @@ const CustomEditor = () => {
     3: ''
   });
 
+  // 초기 에디터 내용 세팅
+  React.useEffect(() => {
+    if (getItem(currentLabel)) {
+      setSaveContent((prev) => ({
+        ...prev,
+        [currentLabel]: getItem(currentLabel)
+      }));
+      setEditorContent((prev) => ({
+        ...prev,
+        [currentLabel]: getItem(currentLabel)
+      }));
+    }
+    // setItem(1, skeletonCode);
+    // setItem(2, skeletonCode);
+    // setItem(3, skeletonCode);
+  }, [currentLabel]);
+
   // 에디터 내용이 바뀔때마다 editorContent를 세팅
+  // 실시간 저장을 위해서는 save Button과 똑같은 기능 해야함.
   const handleEditorChange = (value) => {
     setEditorContent((prev) => ({
       ...prev,
       [currentLabel]: value
     }));
+    setSaveContent((prev) => ({
+      ...prev,
+      [currentLabel]: editorContent[currentLabel]
+    }));
+    setItem(currentLabel, editorContent[currentLabel]);
   };
 
   // 저장 버튼을 누르면 해당하는 라벨의 saveContent에 editorContent를 세팅
@@ -44,7 +68,7 @@ const CustomEditor = () => {
       ...prev,
       [currentLabel]: editorContent[currentLabel]
     }));
-
+    setItem(currentLabel, editorContent[currentLabel]);
     alert('저장 완료');
   };
 
@@ -60,6 +84,7 @@ const CustomEditor = () => {
         ...prev,
         [currentLabel]: fr.result
       }));
+      setItem(currentLabel, fr.result);
     };
   };
 
@@ -79,11 +104,16 @@ const CustomEditor = () => {
       ...prev,
       [currentLabel]: skeletonCode
     }));
+    setEditorContent((prev) => ({
+      ...prev,
+      [currentLabel]: skeletonCode
+    }));
+    setItem(currentLabel, skeletonCode);
   };
 
   // 현재 작성 중인 코드를 복사함(저장안해도)
   const handleCopyButton = () => {
-    window.navigator.clipboard.writeText(editorContent[currentLabel]).then(() => {
+    window.navigator.clipboard.writeText(saveContent[currentLabel]).then(() => {
       alert('복사 완료');
     });
   };
@@ -91,7 +121,7 @@ const CustomEditor = () => {
   // 현재 작성 중인 코드를 다운함(저장안해도)
   const handleDownloadButton = () => {
     // Blob 생성자: 파일로 만들고자 하는것, 그것의 타입
-    const blob = new Blob([editorContent[currentLabel]], { type: 'text/plain' });
+    const blob = new Blob([saveContent[currentLabel]], { type: 'text/plain' });
 
     // Blob 객체를 나타내는 다운로드 url 생성
     const url = window.URL.createObjectURL(blob);

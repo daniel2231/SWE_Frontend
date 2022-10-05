@@ -6,7 +6,7 @@ import TestSuccessContext from '../../../context/TestSuccessContext';
 
 const SubTitle = ({ subTitle = '', output = '' }) => {
   const testResult = React.useContext(TestSuccessContext);
-  console.log(testResult);
+
   // center block의 코드를 실행해서 user's input, output 가져와야 함.
   const handleTestButton = (tempOutput) => {
     if (tempOutput === 0) testResult.setTestResult(true);

@@ -13,14 +13,15 @@ const testQuestion =
 
 const testConstraint = ['0 <= n <= 80', '리턴 타입이 int가 아니라는 것에 유의'];
 
-// input은 임시, 아마 context로 가져와야 되지 않을까
-// 테스트케이스의 올바른 output
+// input: 임시, 아마 채점 버튼 눌렀을 때 context로 가져와야 되지 않을까
+// output: 테스트케이스의 올바른 output
 const testcase = [
   { title: '테스트케이스 1', input: 'solution(0)', output: 0 },
   { title: '테스트케이스 2', input: 'solution(2)', output: 2 },
   { title: '테스트케이스 3', input: 'solution(2)', output: 2 },
   { title: '테스트케이스 4', input: 'solution(2)', output: 2 }
 ];
+
 const LeftBlock = () => {
   const [testResult, setTestResult] = React.useState(false);
   const value = React.useMemo(
