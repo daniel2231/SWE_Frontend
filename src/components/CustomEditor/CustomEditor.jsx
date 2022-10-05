@@ -14,7 +14,7 @@ import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 const CustomEditor = () => {
   return (
     <>
-      <Container>
+      <Container sx={{ borderBottom: '.1px solid black' }}>
         <Typography sx={{ fontSize: '20px', fontWeight: 'bold' }}>코드 입력</Typography>
         <Box sx={{ display: 'flex', justifyContent: 'space-evenly' }}>
           <Label>1</Label>
@@ -30,7 +30,7 @@ const CustomEditor = () => {
         style={{ height: '70vh' }}
       />
 
-      <Container>
+      <Container sx={{ borderTop: '.1px solid black' }}>
         <Box sx={{ display: 'flex', gap: 2 }}>
           <FolderSharpIcon style={{ cursor: 'pointer' }} />
           <RestartAltSharpIcon style={{ cursor: 'pointer' }} />
@@ -57,7 +57,7 @@ const Container = styled(Box)`
   align-items: center;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
+  padding: 9px 20px;
 `;
 
 const Label = styled(Box)`
