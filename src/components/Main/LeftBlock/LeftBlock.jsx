@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Box } from '@mui/material';
 import styled from '@emotion/styled';
 
-import Title from '../Title';
+import Title from './Title';
 import SubTitle from './SubTitle';
 import Content from './Content';
 import TestcaseContent from './TestcaseContent';

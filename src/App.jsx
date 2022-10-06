@@ -5,6 +5,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import Home from './pages/Home';
 import Questions from './pages/Questions';
+import Result from './pages/Result';
 
 import ThemeContext from './context/ThemeContext';
 
@@ -50,6 +51,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/questions" element={<Questions />} />
+          <Route path="/result" element={<Result />} />
         </Routes>
       </ThemeProvider>
     </ThemeContext.Provider>

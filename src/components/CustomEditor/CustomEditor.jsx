@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Editor from '@monaco-editor/react';
 import styled from '@emotion/styled';
@@ -137,9 +138,12 @@ const CustomEditor = () => {
     window.URL.revokeObjectURL(url);
   };
 
+  const navigate = useNavigate();
   const handleRunButton = () => {};
   const handleGradeButton = () => {};
-  const handleSubmitButton = () => {};
+  const handleSubmitButton = () => {
+    navigate('/result');
+  };
 
   return (
     <>

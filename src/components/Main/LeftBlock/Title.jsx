@@ -9,7 +9,9 @@ const Title = ({ title }) => {
         padding: '10px 20px',
         color: 'white',
         fontSize: '20px',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        borderBottom: '1px solid #f2f2f2',
+        
       }}
     >
       {title}

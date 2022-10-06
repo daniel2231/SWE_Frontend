@@ -3,9 +3,9 @@ import styled from '@emotion/styled';
 import ResponsiveAppBar from '../components/common/Appbar/Appbar';
 import CustomEditor from '../components/CustomEditor/CustomEditor';
 import LeftBlock from '../components/Main/LeftBlock/LeftBlock';
-import QuestionRightBlock from '../components/Main/RightBlock/Question/QuestionRightBlock';
+import ResultRightBlock from '../components/Main/RightBlock/Result/ResultRightBlock';
 
-const Questions = () => {
+const Result = () => {
   return (
     <MainWrapper>
       <ResponsiveAppBar menuDisplay />
@@ -19,7 +19,7 @@ const Questions = () => {
         </ColumnContainer>
 
         <ColumnContainer>
-          <QuestionRightBlock />
+          <ResultRightBlock />
         </ColumnContainer>
       </MainContainer>
     </MainWrapper>
@@ -46,4 +46,4 @@ const ColumnContainer = styled.div`
   height: 100%;
 `;
 
-export default Questions;
+export default Result;
