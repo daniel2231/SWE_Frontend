@@ -152,6 +152,7 @@ const CustomEditor = () => {
         <Box sx={{ display: 'flex', justifyContent: 'space-evenly' }}>
           {saveLabelNumber.map((item) => (
             <Label
+              focus={currentLabel === item}
               onClick={() => {
                 handleCurrentLabel(item);
               }}
@@ -211,7 +212,7 @@ const Container = styled(Box)`
 `;
 
 const Label = styled(Box)`
-  background-color: #53769d;
+  background-color: ${(props) => (props.focus ? '#8faccd' : '#53769d')};
   width: auto;
   height: auto;
   padding: 0 1rem;
