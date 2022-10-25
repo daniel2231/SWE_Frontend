@@ -21,55 +21,33 @@ const CustomEditor = () => {
     setCurrentLabel(number);
   };
 
-  const [editorContent, setEditorContent] = React.useState({
-    1: skeletonCode,
-    2: skeletonCode,
-    3: skeletonCode
-  });
   const [saveContent, setSaveContent] = React.useState({
-    1: '',
-    2: '',
-    3: ''
+    1: getItem(1) || skeletonCode,
+    2: getItem(2) || skeletonCode,
+    3: getItem(3) || skeletonCode
   });
 
-  // 초기 에디터 내용 세팅
   React.useEffect(() => {
-    if (getItem(currentLabel)) {
-      setSaveContent((prev) => ({
-        ...prev,
-        [currentLabel]: getItem(currentLabel)
-      }));
-      setEditorContent((prev) => ({
-        ...prev,
-        [currentLabel]: getItem(currentLabel)
-      }));
-    }
-    // setItem(1, skeletonCode);
-    // setItem(2, skeletonCode);
-    // setItem(3, skeletonCode);
+    // setItem(currentLabel, saveContent[currentLabel]);
+
+    setSaveContent((prev) => ({
+      ...prev,
+      [currentLabel]: getItem(currentLabel)
+    }));
   }, [currentLabel]);
 
-  // 에디터 내용이 바뀔때마다 editorContent를 세팅
-  // 실시간 저장을 위해서는 save Button과 똑같은 기능 해야함.
   const handleEditorChange = (value) => {
-    setEditorContent((prev) => ({
+    setSaveContent((prev) => ({
       ...prev,
       [currentLabel]: value
     }));
-    setSaveContent((prev) => ({
-      ...prev,
-      [currentLabel]: editorContent[currentLabel]
-    }));
-    setItem(currentLabel, editorContent[currentLabel]);
+    setTimeout(() => {
+      setItem(currentLabel, saveContent[currentLabel]);
+    }, 1000);
   };
 
-  // 저장 버튼을 누르면 해당하는 라벨의 saveContent에 editorContent를 세팅
   const handleSaveButton = () => {
-    setSaveContent((prev) => ({
-      ...prev,
-      [currentLabel]: editorContent[currentLabel]
-    }));
-    setItem(currentLabel, editorContent[currentLabel]);
+    setItem(currentLabel, saveContent[currentLabel]);
     alert('저장 완료');
   };
 
@@ -78,10 +56,6 @@ const CustomEditor = () => {
     fr.readAsText(file, 'UTF-8');
     fr.onload = () => {
       setSaveContent((prev) => ({
-        ...prev,
-        [currentLabel]: fr.result
-      }));
-      setEditorContent((prev) => ({
         ...prev,
         [currentLabel]: fr.result
       }));
@@ -99,27 +73,20 @@ const CustomEditor = () => {
     };
   };
 
-  // reset을 누르면 초기화 코드로 다시 저장됨.
   const handleResetButton = () => {
     setSaveContent((prev) => ({
-      ...prev,
-      [currentLabel]: skeletonCode
-    }));
-    setEditorContent((prev) => ({
       ...prev,
       [currentLabel]: skeletonCode
     }));
     setItem(currentLabel, skeletonCode);
   };
 
-  // 현재 작성 중인 코드를 복사함(저장안해도)
   const handleCopyButton = () => {
     window.navigator.clipboard.writeText(saveContent[currentLabel]).then(() => {
       alert('복사 완료');
     });
   };
 
-  // 현재 작성 중인 코드를 다운함(저장안해도)
   const handleDownloadButton = () => {
     // Blob 생성자: 파일로 만들고자 하는것, 그것의 타입
     const blob = new Blob([saveContent[currentLabel]], { type: 'text/plain' });
