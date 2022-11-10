@@ -32,28 +32,35 @@ const LeftBlock = () => {
     [testResult, setTestResult]
   );
   return (
-    <>
+    <Container>
       <Title title="문제 & 참조/제약사항" />
-      <SubTitle subTitle="문제" />
       <Content content={testQuestion} />
-      <SubTitle subTitle="참조/제약사항" />
       <Content content={testConstraint} />
 
       <Title title="테스트케이스" />
 
-      <Container>
+      <TestcaseContainer>
         {testcase.map((item) => (
           <TestSuccessContext.Provider value={value}>
             <SubTitle subTitle={item.title} output={item.output} />
             <TestcaseContent input={item.input} output={item.output} />
           </TestSuccessContext.Provider>
         ))}
-      </Container>
-    </>
+      </TestcaseContainer>
+    </Container>
   );
 };
 
 const Container = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+`;
+
+const TestcaseContainer = styled(Box)`
   overflow: auto;
+  background-color: #263747;
+  color: white;
+  height: 40vh;
 `;
 export default LeftBlock;

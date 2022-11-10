@@ -1,24 +1,22 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
 
 import AppBar from '@mui/material/AppBar';
+import { Link } from 'react-router-dom';
+
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
+import Button from '@mui/material/Button';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import SettingsIcon from '@mui/icons-material/Settings';
-import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
-import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+
 import Drawer from '@mui/material/Drawer';
 import ToggleBtn from '../RightDrawer/ToggleBtn';
-
-const pages = ['코딩테스트 연습'];
 
 const ResponsiveAppBar = ({ menuDisplay = false }) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -96,13 +94,12 @@ const ResponsiveAppBar = ({ menuDisplay = false }) => {
                 display: { xs: 'block', md: 'none' }
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
+              <MenuItem key="코딩테스트 연습" onClick={handleCloseNavMenu}>
+                <Typography textAlign="center">코딩테스트 연습</Typography>
+              </MenuItem>
             </Menu>
           </Box>
+
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h5"
@@ -123,86 +120,61 @@ const ResponsiveAppBar = ({ menuDisplay = false }) => {
             LOGO
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Link to="/questions" style={{ textDecoration: 'none' }}>
-                <Button
-                  key={page}
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'white', display: 'block' }}
-                >
-                  {page}
-                </Button>
-              </Link>
-            ))}
-          </Box>
-          {menuDisplay && (
-            <>
-              <Box
-                sx={{
-                  flexGrow: 1,
-                  display: { xs: 'none', md: 'flex' },
-                  justifyContent: 'space-evenly'
-                }}
+          <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+            <Link to="/questions" style={{ textDecoration: 'none' }}>
+              <Button
+                key="코딩테스트 연습"
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'white', display: 'block' }}
               >
+                코딩테스트 연습
+              </Button>
+            </Link>
+            {menuDisplay && (
+              <>
                 <Typography
                   sx={{
-                    flexGrow: 0,
-                    minWidth: 250,
-                    display: { xs: 'none', lg: 'flex' },
-                    justifyContent: 'center',
-                    backgroundColor: '#D1D7E5',
-                    padding: '1px 20px',
-                    borderRadius: '5px',
-                    color: 'black',
-                    fontWeight: 'bold'
+                    padding: '1px 1px',
+                    color: 'white'
                   }}
                 >
-                  소프트웨어공학
+                  &gt; 소프트웨어공학&nbsp;
                 </Typography>
-                <Box
+                <Typography
                   sx={{
-                    flexGrow: 0,
-                    minWidth: 250,
-                    maxWidth: 'lg',
-                    display: { xs: 'none', lg: 'flex' },
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    backgroundColor: '#D1D7E5',
-                    padding: '1px 20px',
-                    borderRadius: '5px',
-                    color: 'black'
+                    padding: '1px 1px',
+                    color: 'white'
                   }}
                 >
-                  <ArrowLeftIcon sx={{ cursor: 'pointer' }} />
-                  <Typography sx={{ fontWeight: 'bold' }}>week 1: 피보나치 수</Typography>
-                  <ArrowRightIcon sx={{ cursor: 'pointer' }} />
-                </Box>
-              </Box>
+                  &gt; 피보나치 수
+                </Typography>
+              </>
+            )}
+          </Box>
 
+          {menuDisplay && (
+            <Box
+              sx={{
+                flexGrow: 1,
+                display: { xs: 'none', md: 'flex' },
+                justifyContent: 'flex-end'
+              }}
+            >
               <Box
                 sx={{
-                  flexGrow: 1,
-                  display: { xs: 'none', md: 'flex' },
-                  justifyContent: 'flex-end'
+                  backgroundColor: '#D1D7E5',
+                  padding: '1px 20px',
+                  borderRadius: '5px',
+                  color: 'black',
+                  fontWeight: 'bold'
                 }}
               >
-                <Box
-                  sx={{
-                    backgroundColor: '#D1D7E5',
-                    padding: '1px 20px',
-                    borderRadius: '5px',
-                    color: 'black',
-                    fontWeight: 'bold'
-                  }}
-                >
-                  2d 30h 30m 남음
-                </Box>
+                2d 30h 30m 남음
               </Box>
-            </>
+            </Box>
           )}
 
-          <Box sx={{ flexGrow: 0 }}>
+          <Box sx={{ flexGrow: 0, display: 'flex', justifyContent: 'flex-end' }}>
             <IconButton
               size="large"
               aria-label="search"

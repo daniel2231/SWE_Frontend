@@ -11,6 +11,7 @@ import RestartAltSharpIcon from '@mui/icons-material/RestartAltSharp';
 import ContentCopyOutlinedIcon from '@mui/icons-material/ContentCopyOutlined';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import { getItem, setItem } from './localStorage';
+import Title from '../Main/LeftBlock/Title';
 
 const skeletonCode = 'function solution(n){\n  const test=0;\n}';
 const saveLabelNumber = [1, 2, 3];
@@ -113,10 +114,16 @@ const CustomEditor = () => {
   };
 
   return (
-    <>
-      <Container sx={{ borderBottom: '.1px solid black' }}>
+    <BigContainer>
+      <TitleButtonBar>
         <Typography sx={{ fontSize: '20px', fontWeight: 'bold' }}>코드 입력</Typography>
-        <Box sx={{ display: 'flex', justifyContent: 'space-evenly' }}>
+
+        <Box sx={{ display: 'flex', flexDirection: 'row', gap: 3, alignItems: 'center' }}>
+          <FolderSharpIcon style={{ cursor: 'pointer' }} onClick={handleFolderOpenButton} />
+          <RestartAltSharpIcon style={{ cursor: 'pointer' }} onClick={handleResetButton} />
+          <ContentCopyOutlinedIcon style={{ cursor: 'pointer' }} onClick={handleCopyButton} />
+          <FileDownloadOutlinedIcon style={{ cursor: 'pointer' }} onClick={handleDownloadButton} />
+
           {saveLabelNumber.map((item) => (
             <Label
               focus={currentLabel === item}
@@ -132,50 +139,56 @@ const CustomEditor = () => {
             </Label>
           ))}
 
-          <SaveOutlinedIcon
-            sx={{ cursor: 'pointer', marginLeft: '1rem' }}
-            onClick={handleSaveButton}
-          />
+          <SaveOutlinedIcon sx={{ cursor: 'pointer' }} onClick={handleSaveButton} />
         </Box>
-      </Container>
+      </TitleButtonBar>
 
       <Editor
-        defaultLanguage="javascript"
+        height="36vh"
+        defaultLanguage="python"
         value={saveContent[currentLabel] || skeletonCode}
         onChange={handleEditorChange}
-        style={{ height: '70vh' }}
+        theme="vs-dark"
       />
 
-      <Container sx={{ borderTop: '.1px solid black' }}>
-        <Box sx={{ display: 'flex', gap: 2 }}>
-          <FolderSharpIcon style={{ cursor: 'pointer' }} onClick={handleFolderOpenButton} />
-          <RestartAltSharpIcon style={{ cursor: 'pointer' }} onClick={handleResetButton} />
-          <ContentCopyOutlinedIcon style={{ cursor: 'pointer' }} onClick={handleCopyButton} />
-          <FileDownloadOutlinedIcon style={{ cursor: 'pointer' }} onClick={handleDownloadButton} />
-        </Box>
+      <Title title="실행 결과" />
+      <Terminal>
+        <Typography sx={{ fontSize: '15px' }}>Terminal &gt;&gt; </Typography>
+      </Terminal>
 
+      <BottomBar>
         <Box sx={{ display: 'flex', gap: 3 }}>
           <Box sx={{ display: 'flex', gap: 1 }}>
-            <ActionButton onClick={handleRunButton}>실행</ActionButton>
-            <ActionButton onClick={handleGradeButton}>채점</ActionButton>
+            <ActionButton onClick={handleRunButton}>터미널 실행</ActionButton>
+            <ActionButton onClick={handleGradeButton}>테스트케이스 채점</ActionButton>
           </Box>
 
           <ActionButton style={{ backgroundColor: '#409BFF' }} onClick={handleSubmitButton}>
             제출
           </ActionButton>
         </Box>
-      </Container>
-    </>
+      </BottomBar>
+    </BigContainer>
   );
 };
 
-const Container = styled(Box)`
+const BigContainer = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  height: 100;
+`;
+
+const TitleButtonBar = styled(Box)`
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  align-items: center;
-  padding: 9px 20px;
+  background-color: #263747;
+  padding: 10px 20px;
+  color: white;
+  border-bottom: 1px solid black;
+  border-top: 1px solid black;
+  width: 100%;
 `;
 
 const Label = styled(Box)`
@@ -183,19 +196,40 @@ const Label = styled(Box)`
   width: auto;
   height: auto;
   padding: 0 1rem;
-  margin: 0 0.5rem;
   cursor: pointer;
   &:hover {
     background-color: #8faccd;
   }
 `;
 
+const Terminal = styled(Box)`
+  background-color: #263747;
+  padding: 10px 20px;
+  color: white;
+  border-bottom: 1px solid black;
+  height: 34vh;
+`;
+const BottomBar = styled(Box)`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: right;
+  background-color: #263747;
+  padding: 10px 20px;
+  border-bottom: 1px solid black;
+  width: 100%;
+`;
 const ActionButton = styled(Button)`
   font-size: 14px;
   font-weight: bold;
-  letter-spacing: 0.2rem;
+  letter-spacing: -1px;
   border-radius: 1rem;
   background-color: #c6d0db;
-  padding: 0;
+  padding: 0px 10px;
+  &:hover {
+    color: white;
+    background-color: #46515f;
+  }
 `;
+
 export default CustomEditor;

@@ -26,7 +26,7 @@ const App = () => {
         palette: {
           mode,
           primary: {
-            main: '#1C395A',
+            main: '#111E28',
             contrastText: 'rgba(255,255,255,0.87)'
           },
           secondary: {

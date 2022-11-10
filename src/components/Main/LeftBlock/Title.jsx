@@ -5,13 +5,14 @@ const Title = ({ title }) => {
   return (
     <Box
       sx={{
-        backgroundColor: '#53769D',
+        backgroundColor: '#263747',
         padding: '10px 20px',
         color: 'white',
         fontSize: '20px',
         fontWeight: 'bold',
-        borderBottom: '1px solid #f2f2f2',
-        
+        borderBottom: '1px solid black',
+        borderTop: '1px solid black',
+        borderRight: '1px solid black'
       }}
     >
       {title}

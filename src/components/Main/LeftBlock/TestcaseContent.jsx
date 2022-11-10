@@ -11,17 +11,21 @@ const TestcaseContent = ({ input = '', output = '' }) => {
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center',
+        justifyContent: 'left',
         alignItems: 'center',
         margin: '5px'
       }}
     >
-      <LabelBox style={{ borderBottom: '1px solid black' }}>
+      <LabelBox>
         <Label labelTitle="Input" />
+        <Label input={input} />
         <Label labelTitle="Output" />
+        <Label output={output} success={success} />
       </LabelBox>
       <LabelBox>
-        <Label input={input} />
+        <p />
+        <p />
+        <Label labelTitle="Your Output" />
         <Label output={output} success={success} />
       </LabelBox>
     </Box>
@@ -29,10 +33,8 @@ const TestcaseContent = ({ input = '', output = '' }) => {
 };
 
 const LabelBox = styled(Box)`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   padding: 5px 5px;
   font-size: 14px;
 `;

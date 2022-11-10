@@ -3,7 +3,6 @@ import styled from '@emotion/styled';
 import ResponsiveAppBar from '../components/common/Appbar/Appbar';
 import CustomEditor from '../components/CustomEditor/CustomEditor';
 import LeftBlock from '../components/Main/LeftBlock/LeftBlock';
-import QuestionRightBlock from '../components/Main/RightBlock/Question/QuestionRightBlock';
 
 const Questions = () => {
   return (
@@ -12,14 +11,7 @@ const Questions = () => {
       <MainContainer>
         <ColumnContainer>
           <LeftBlock />
-        </ColumnContainer>
-
-        <ColumnContainer>
           <CustomEditor />
-        </ColumnContainer>
-
-        <ColumnContainer>
-          <QuestionRightBlock />
         </ColumnContainer>
       </MainContainer>
     </MainWrapper>
@@ -27,7 +19,7 @@ const Questions = () => {
 };
 
 const MainWrapper = styled.div`
-  height: 100vh;
+  height: 90vh;
 `;
 
 const MainContainer = styled.div`
@@ -39,9 +31,8 @@ const MainContainer = styled.div`
 `;
 
 const ColumnContainer = styled.div`
-  flex: 33.33%;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1.5fr 3.5fr;
   border-left: 1px solid black;
   height: 100%;
 `;
