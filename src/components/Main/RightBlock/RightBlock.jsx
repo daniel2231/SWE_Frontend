@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { Box, Typography, Grid } from '@mui/material';
 import styled from '@emotion/styled';
-import FunctionTest from './Result/FirstMenu/FunctionTest';
-import EfficiencyTest from './Result/FirstMenu/EfficiencyTest';
-import ReadabilityTest from './Result/FirstMenu/ReadabilityTest';
-import DonutGraph from './Result/FirstMenu/DonutGraph';
+import FunctionTest from './Result/FunctionTest';
+import EfficiencyTest from './Result/EfficiencyTest';
+import ReadabilityTest from './Result/ReadabilityTest';
+import DonutGraph from './Result/DonutGraph';
 
 const RightBlock = () => {
   const donutData = [

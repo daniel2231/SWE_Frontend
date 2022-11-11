@@ -3,18 +3,29 @@ import styled from '@emotion/styled';
 import ResponsiveAppBar from '../components/common/Appbar/Appbar';
 import CustomEditor from '../components/CustomEditor/CustomEditor';
 import LeftBlock from '../components/Main/LeftBlock/LeftBlock';
+import ReturnValueContext from '../context/ReturnValueContext';
 
 const Questions = () => {
+  const [returnValue, setReturnValue] = React.useState('');
+  const value = React.useMemo(
+    () => ({
+      returnValue,
+      setReturnValue
+    }),
+    [returnValue, setReturnValue]
+  );
   return (
-    <MainWrapper>
-      <ResponsiveAppBar menuDisplay />
-      <MainContainer>
-        <ColumnContainer>
-          <LeftBlock />
-          <CustomEditor />
-        </ColumnContainer>
-      </MainContainer>
-    </MainWrapper>
+    <ReturnValueContext.Provider value={value}>
+      <MainWrapper>
+        <ResponsiveAppBar menuDisplay />
+        <MainContainer>
+          <ColumnContainer>
+            <LeftBlock />
+            <CustomEditor />
+          </ColumnContainer>
+        </MainContainer>
+      </MainWrapper>
+    </ReturnValueContext.Provider>
   );
 };
 

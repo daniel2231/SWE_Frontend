@@ -12,8 +12,14 @@ import ContentCopyOutlinedIcon from '@mui/icons-material/ContentCopyOutlined';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import { getItem, setItem } from './localStorage';
 import Title from '../Main/LeftBlock/Title';
+import Pyodide from '../../utils/Pyodide';
+import ReturnValueContext from '../../context/ReturnValueContext';
+import useConfirm from '../../utils/useConfirm';
 
-const skeletonCode = 'function solution(n){\n  const test=0;\n}';
+const skeletonCode = `def solution(n):
+  print(n)
+solution(1)
+`;
 const saveLabelNumber = [1, 2, 3];
 
 const CustomEditor = () => {
@@ -107,16 +113,27 @@ const CustomEditor = () => {
   };
 
   const navigate = useNavigate();
-  const handleRunButton = () => {};
+
+  const returnValue = React.useContext(ReturnValueContext);
+
+  const handleRunButton = () => {
+    Pyodide(getItem(currentLabel), returnValue);
+  };
   const handleGradeButton = () => {};
+
+  const onConfirm = () => {
+    navigate('/result', { state: { currentLabel } });
+  };
   const handleSubmitButton = () => {
-    navigate('/result');
+    useConfirm('제출하시겠습니까?', onConfirm);
   };
 
   return (
     <BigContainer>
       <TitleButtonBar>
-        <Typography sx={{ fontSize: '20px', fontWeight: 'bold' }}>코드 입력</Typography>
+        <Typography sx={{ fontSize: '20px', fontWeight: 'bold', letterSpacing: '-2px' }}>
+          코드 입력
+        </Typography>
 
         <Box sx={{ display: 'flex', flexDirection: 'row', gap: 3, alignItems: 'center' }}>
           <FolderSharpIcon style={{ cursor: 'pointer' }} onClick={handleFolderOpenButton} />
@@ -144,7 +161,7 @@ const CustomEditor = () => {
       </TitleButtonBar>
 
       <Editor
-        height="36vh"
+        height="49vh"
         defaultLanguage="python"
         value={saveContent[currentLabel] || skeletonCode}
         onChange={handleEditorChange}
@@ -153,7 +170,19 @@ const CustomEditor = () => {
 
       <Title title="실행 결과" />
       <Terminal>
-        <Typography sx={{ fontSize: '15px' }}>Terminal &gt;&gt; </Typography>
+        {returnValue.returnValue ? (
+          <Typography sx={{ fontSize: '15px', color: 'white' }}>
+            Terminal &gt;&gt; python solution.py <br />
+            <br />
+            {returnValue.returnValue.map((value) => (
+              <Typography>{value}</Typography>
+            ))}
+          </Typography>
+        ) : (
+          <Typography sx={{ fontSize: '15px', color: '#78909C', letterSpacing: '-1px' }}>
+            실행 결과가 여기에 표시됩니다.
+          </Typography>
+        )}
       </Terminal>
 
       <BottomBar>
@@ -207,7 +236,8 @@ const Terminal = styled(Box)`
   padding: 10px 20px;
   color: white;
   border-bottom: 1px solid black;
-  height: 34vh;
+  height: 20vh;
+  overflow: auto;
 `;
 const BottomBar = styled(Box)`
   display: flex;

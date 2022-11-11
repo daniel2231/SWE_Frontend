@@ -12,7 +12,8 @@ const Title = ({ title }) => {
         fontWeight: 'bold',
         borderBottom: '1px solid black',
         borderTop: '1px solid black',
-        borderRight: '1px solid black'
+        borderRight: '1px solid black',
+        letterSpacing: '-2px'
       }}
     >
       {title}

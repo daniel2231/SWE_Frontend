@@ -135,7 +135,9 @@ const ResponsiveAppBar = ({ menuDisplay = false }) => {
                 <Typography
                   sx={{
                     padding: '1px 1px',
-                    color: 'white'
+                    color: 'white',
+                    letterSpacing: '-1px',
+                    fontSize: '13px'
                   }}
                 >
                   &gt; 소프트웨어공학&nbsp;
@@ -143,7 +145,9 @@ const ResponsiveAppBar = ({ menuDisplay = false }) => {
                 <Typography
                   sx={{
                     padding: '1px 1px',
-                    color: 'white'
+                    color: 'white',
+                    letterSpacing: '-1px',
+                    fontSize: '13px'
                   }}
                 >
                   &gt; 피보나치 수
@@ -166,7 +170,9 @@ const ResponsiveAppBar = ({ menuDisplay = false }) => {
                   padding: '1px 20px',
                   borderRadius: '5px',
                   color: 'black',
-                  fontWeight: 'bold'
+                  fontWeight: 'bold',
+                  letterSpacing: '-1px',
+                  fontSize: '15px'
                 }}
               >
                 2d 30h 30m 남음

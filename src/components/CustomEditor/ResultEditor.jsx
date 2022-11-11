@@ -1,14 +1,20 @@
 import * as React from 'react';
-
+import { useLocation } from 'react-router-dom';
 import Editor from '@monaco-editor/react';
 import styled from '@emotion/styled';
 import Box from '@mui/material/Box';
 import { Typography } from '@mui/material';
-
 import Title from '../Main/LeftBlock/Title';
 import ReferenceContent from './ReferenceContent';
+import { getItem } from './localStorage';
 
 const ResultEditor = () => {
+  const { state } = useLocation();
+  const [myCode, setMyCode] = React.useState('');
+  React.useEffect(() => {
+    setMyCode(getItem(state.currentLabel));
+  }, [state]);
+
   return (
     <BigContainer>
       <TitleButtonBar>
@@ -16,19 +22,14 @@ const ResultEditor = () => {
       </TitleButtonBar>
 
       <EditorContainer>
+        <Editor height="36vh" value={myCode} theme="vs-dark" options={{ readOnly: true }} />
         <Editor
           height="36vh"
           defaultLanguage="python"
           // value={saveContent[currentLabel] || skeletonCode}
           // onChange={handleEditorChange}
           theme="vs-dark"
-        />
-        <Editor
-          height="36vh"
-          defaultLanguage="python"
-          // value={saveContent[currentLabel] || skeletonCode}
-          // onChange={handleEditorChange}
-          theme="vs-dark"
+          options={{ readOnly: true }}
         />
       </EditorContainer>
 

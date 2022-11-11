@@ -42,7 +42,9 @@ const LabelBox = styled(Box)`
 const Label = ({ labelTitle = '', input = '', output = '', success = false }) => {
   return (
     <Box sx={{ width: 150, textAlign: 'center' }}>
-      {labelTitle && <Typography sx={{ fontWeight: 'bold' }}>{labelTitle}</Typography>}
+      {labelTitle && (
+        <Typography sx={{ fontWeight: 'bold', letterSpacing: '-1px' }}>{labelTitle}</Typography>
+      )}
       {input && <Typography>{input}</Typography>}
       {output && <Typography sx={{ color: success ? 'blue' : 'red' }}>{output}</Typography>}
     </Box>

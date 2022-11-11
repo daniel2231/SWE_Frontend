@@ -22,7 +22,8 @@ const SubTitle = ({ subTitle = '', output = '' }) => {
         alignItems: 'center',
         backgroundColor: '#46515F',
         padding: '7px 20px',
-        borderBottom: '1px solid black'
+        borderBottom: '1px solid black',
+        letterSpacing:'-2px'
       }}
     >
       <Box
