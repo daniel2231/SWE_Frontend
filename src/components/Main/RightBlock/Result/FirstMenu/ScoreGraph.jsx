@@ -14,7 +14,7 @@ const ScoreGraph = () => {
   const totalScore = donutData.map((item) => item.value).reduce((prev, curr) => prev + curr, 0);
 
   return (
-    <Container >
+    <Container>
       <Typography sx={{ fontSize: '20px', fontWeight: 'bold' }}>
         최종성적: {totalScore}점
       </Typography>

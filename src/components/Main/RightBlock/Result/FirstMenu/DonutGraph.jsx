@@ -15,7 +15,7 @@ const DonutGraph = ({data}) => {
       animate
       label={({ dataEntry }) => dataEntry.title}
       labelStyle={{ fontSize: '8px', fontWeight: 'bold', fill: '#333333' }}
-      labelPosition={70}
+      labelPosition={75}
     />
   );
 };
