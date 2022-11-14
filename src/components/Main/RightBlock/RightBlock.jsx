@@ -66,6 +66,17 @@ const Container = styled(Box)`
   flex-direction: column;
   height: 100%;
   overflow: auto;
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #b2c0cc;
+    /* 스크롤바 둥글게 설정    */
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: #263747;
+  }
 `;
 
 const ContentBox = styled(Box)`
@@ -95,7 +106,7 @@ const SubTitle = styled(Box)`
   background-color: #8faccd;
   padding: 3px 20px;
   border-bottom: 1px solid black;
-  letter-spacing:-2px;
+  letter-spacing: -2px;
 `;
 
 const ScoreLabelContainer = styled(Box)`

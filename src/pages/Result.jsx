@@ -21,6 +21,17 @@ const Result = () => {
 
 const MainWrapper = styled.div`
   height: 100vh;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #b2c0cc;         
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: #263747;
+  }
 `;
 
 const MainContainer = styled.div`

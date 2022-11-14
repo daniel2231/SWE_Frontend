@@ -55,12 +55,24 @@ const Container = styled(Box)`
   display: flex;
   flex-direction: column;
   height: 100%;
+  
 `;
 
 const TestcaseContainer = styled(Box)`
-  overflow: auto;
+  overflow-x: hidden;
   background-color: #263747;
   color: white;
   height: 40vh;
+ 
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #b2c0cc;         
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: #263747;
+  }
 `;
 export default LeftBlock;
