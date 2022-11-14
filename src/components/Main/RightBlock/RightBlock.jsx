@@ -71,7 +71,7 @@ const Container = styled(Box)`
   }
   &::-webkit-scrollbar-thumb {
     background-color: #b2c0cc;
-    /* 스크롤바 둥글게 설정    */
+   
     border-radius: 10px;
   }
   &::-webkit-scrollbar-track {

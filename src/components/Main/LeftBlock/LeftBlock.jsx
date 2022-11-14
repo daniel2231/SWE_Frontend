@@ -18,8 +18,8 @@ const testConstraint = ['0 <= n <= 80', '리턴 타입이 int가 아니라는 �
 const testcase = [
   { title: '테스트케이스 1', input: 'solution(0)', output: 0 },
   { title: '테스트케이스 2', input: 'solution(2)', output: 2 },
-  { title: '테스트케이스 3', input: 'solution(2)', output: 2 },
-  { title: '테스트케이스 4', input: 'solution(2)', output: 2 }
+  { title: '테스트케이스 3', input: 'solution(3)', output: 3 },
+  { title: '테스트케이스 4', input: 'solution(4)', output: 4 }
 ];
 
 const LeftBlock = () => {
@@ -34,11 +34,12 @@ const LeftBlock = () => {
   return (
     <Container>
       <Title title="문제 & 참조/제약사항" />
-      <Content content={testQuestion} />
-      <Content content={testConstraint} />
-
+      <QuestionContainer>
+        <Content content={testQuestion} />
+        <Content content={testConstraint} />
+      </QuestionContainer>
+      
       <Title title="테스트케이스" />
-
       <TestcaseContainer>
         {testcase.map((item) => (
           <TestSuccessContext.Provider value={value}>
@@ -55,20 +56,35 @@ const Container = styled(Box)`
   display: flex;
   flex-direction: column;
   height: 100%;
-  
 `;
 
+const QuestionContainer = styled(Box)`
+  background-color: #263747;
+  color: white;
+  height: 36vh;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #b2c0cc;
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: #263747;
+  }
+`;
 const TestcaseContainer = styled(Box)`
   overflow-x: hidden;
   background-color: #263747;
   color: white;
   height: 40vh;
- 
+
   &::-webkit-scrollbar {
     width: 8px;
   }
   &::-webkit-scrollbar-thumb {
-    background-color: #b2c0cc;         
+    background-color: #b2c0cc;
     border-radius: 10px;
   }
   &::-webkit-scrollbar-track {

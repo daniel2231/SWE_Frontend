@@ -20,7 +20,6 @@ async function main(code) {
 export default function Pyodide(codeString, returnValueContext) {
   const promise1 = main(codeString);
   promise1.then((value) => {
-    console.log(value);
     returnValueContext.setReturnValue(value);
   });
 }

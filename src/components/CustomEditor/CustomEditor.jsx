@@ -15,6 +15,7 @@ import Title from '../Main/LeftBlock/Title';
 import Pyodide from '../../utils/Pyodide';
 import ReturnValueContext from '../../context/ReturnValueContext';
 import useConfirm from '../../utils/useConfirm';
+import CurrentCodeLabelNumberContext from '../../context/CurrentCodeLabelNumberContext';
 
 const skeletonCode = `def solution(n):
   print(n)
@@ -23,10 +24,7 @@ solution(1)
 const saveLabelNumber = [1, 2, 3];
 
 const CustomEditor = () => {
-  const [currentLabel, setCurrentLabel] = React.useState(1);
-  const handleCurrentLabel = (number) => {
-    setCurrentLabel(number);
-  };
+  const currentCodeLabelNumberValue = React.useContext(CurrentCodeLabelNumberContext);
 
   const [saveContent, setSaveContent] = React.useState({
     1: getItem(1) || skeletonCode,
@@ -39,22 +37,30 @@ const CustomEditor = () => {
 
     setSaveContent((prev) => ({
       ...prev,
-      [currentLabel]: getItem(currentLabel)
+      [currentCodeLabelNumberValue.currentCodeLabelNumber]: getItem(
+        currentCodeLabelNumberValue.currentCodeLabelNumber
+      )
     }));
-  }, [currentLabel]);
+  }, [currentCodeLabelNumberValue.currentCodeLabelNumber]);
 
   const handleEditorChange = (value) => {
     setSaveContent((prev) => ({
       ...prev,
-      [currentLabel]: value
+      [currentCodeLabelNumberValue.currentCodeLabelNumber]: value
     }));
     setTimeout(() => {
-      setItem(currentLabel, saveContent[currentLabel]);
+      setItem(
+        currentCodeLabelNumberValue.currentCodeLabelNumber,
+        saveContent[currentCodeLabelNumberValue.currentCodeLabelNumber]
+      );
     }, 1000);
   };
 
   const handleSaveButton = () => {
-    setItem(currentLabel, saveContent[currentLabel]);
+    setItem(
+      currentCodeLabelNumberValue.currentCodeLabelNumber,
+      saveContent[currentCodeLabelNumberValue.currentCodeLabelNumber]
+    );
     alert('저장 완료');
   };
 
@@ -64,9 +70,9 @@ const CustomEditor = () => {
     fr.onload = () => {
       setSaveContent((prev) => ({
         ...prev,
-        [currentLabel]: fr.result
+        [currentCodeLabelNumberValue.currentCodeLabelNumber]: fr.result
       }));
-      setItem(currentLabel, fr.result);
+      setItem(currentCodeLabelNumberValue.currentCodeLabelNumber, fr.result);
     };
   };
 
@@ -83,20 +89,24 @@ const CustomEditor = () => {
   const handleResetButton = () => {
     setSaveContent((prev) => ({
       ...prev,
-      [currentLabel]: skeletonCode
+      [currentCodeLabelNumberValue.currentCodeLabelNumber]: skeletonCode
     }));
-    setItem(currentLabel, skeletonCode);
+    setItem(currentCodeLabelNumberValue.currentCodeLabelNumber, skeletonCode);
   };
 
   const handleCopyButton = () => {
-    window.navigator.clipboard.writeText(saveContent[currentLabel]).then(() => {
-      alert('복사 완료');
-    });
+    window.navigator.clipboard
+      .writeText(saveContent[currentCodeLabelNumberValue.currentCodeLabelNumber])
+      .then(() => {
+        alert('복사 완료');
+      });
   };
 
   const handleDownloadButton = () => {
     // Blob 생성자: 파일로 만들고자 하는것, 그것의 타입
-    const blob = new Blob([saveContent[currentLabel]], { type: 'text/plain' });
+    const blob = new Blob([saveContent[currentCodeLabelNumberValue.currentCodeLabelNumber]], {
+      type: 'text/plain'
+    });
 
     // Blob 객체를 나타내는 다운로드 url 생성
     const url = window.URL.createObjectURL(blob);
@@ -104,7 +114,7 @@ const CustomEditor = () => {
     // 다운로드 기능만 수행하는 a 태그 생성
     const a = document.createElement('a');
     a.href = url;
-    a.download = `file${currentLabel}.js`;
+    a.download = `file${currentCodeLabelNumberValue.currentCodeLabelNumber}.js`;
     a.click();
 
     // 태그 및 url 삭제: 메모리 누수 방지
@@ -117,12 +127,14 @@ const CustomEditor = () => {
   const returnValue = React.useContext(ReturnValueContext);
 
   const handleRunButton = () => {
-    Pyodide(getItem(currentLabel), returnValue);
+    Pyodide(getItem(currentCodeLabelNumberValue.currentCodeLabelNumber), returnValue);
   };
   const handleGradeButton = () => {};
 
   const onConfirm = () => {
-    navigate('/result', { state: { currentLabel } });
+    navigate('/result', {
+      state: { currentCodeLabelNumber: currentCodeLabelNumberValue.currentCodeLabelNumber }
+    });
   };
   const handleSubmitButton = () => {
     useConfirm('제출하시겠습니까?', onConfirm);
@@ -143,12 +155,13 @@ const CustomEditor = () => {
 
           {saveLabelNumber.map((item) => (
             <Label
-              focus={currentLabel === item}
+              focus={currentCodeLabelNumberValue.currentCodeLabelNumber === item}
               onClick={() => {
-                handleCurrentLabel(item);
+                currentCodeLabelNumberValue.setCurrentCodeLabelNumber(item);
               }}
               sx={{
-                borderRadius: currentLabel === item ? '1rem 0 0 0' : ''
+                borderRadius:
+                  currentCodeLabelNumberValue.currentCodeLabelNumber === item ? '1rem 0 0 0' : ''
               }}
               key={item}
             >
@@ -163,7 +176,7 @@ const CustomEditor = () => {
       <Editor
         height="49vh"
         defaultLanguage="python"
-        value={saveContent[currentLabel] || skeletonCode}
+        value={saveContent[currentCodeLabelNumberValue.currentCodeLabelNumber] || skeletonCode}
         onChange={handleEditorChange}
         theme="vs-dark"
       />

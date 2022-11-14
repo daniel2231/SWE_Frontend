@@ -8,6 +8,11 @@ const SubTitle = ({ subTitle = '', output = '' }) => {
   const testResult = React.useContext(TestSuccessContext);
 
   // center block의 코드를 실행해서 user's input, output 가져와야 함.
+  // test button을 눌렀을 때 currentLabel 을 getItem해서, pyodide를 실행하고 그 output을 
+  // prop로 받은 output과 비교해서 true/false를 설정한 후 display한다
+  
+  // pyodide는 getItem과 resultValue context를 인자로 받는다.
+  
   const handleTestButton = (tempOutput) => {
     if (tempOutput === 0) testResult.setTestResult(true);
     else testResult.setTestResult(false);

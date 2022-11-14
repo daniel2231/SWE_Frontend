@@ -12,7 +12,7 @@ const ResultEditor = () => {
   const { state } = useLocation();
   const [myCode, setMyCode] = React.useState('');
   React.useEffect(() => {
-    setMyCode(getItem(state.currentLabel));
+    if (state) setMyCode(getItem(state.currentCodeLabelNumber));
   }, [state]);
 
   return (
