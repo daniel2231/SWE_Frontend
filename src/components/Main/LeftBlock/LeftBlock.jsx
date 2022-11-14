@@ -1,11 +1,9 @@
 import * as React from 'react';
 import { Box } from '@mui/material';
 import styled from '@emotion/styled';
-
 import Title from './Title';
-import SubTitle from './SubTitle';
+import TestcaseBlock from './TestcaseBlock';
 import Content from './Content';
-import TestcaseContent from './TestcaseContent';
 import TestSuccessContext from '../../../context/TestSuccessContext';
 
 const testQuestion =
@@ -23,13 +21,16 @@ const testcase = [
 ];
 
 const LeftBlock = () => {
-  const [testResult, setTestResult] = React.useState(false);
+  const [yourOutput, setYourOutput] = React.useState('');
+  const [testSuccess, setTestSuccess] = React.useState(false);
   const value = React.useMemo(
     () => ({
-      testResult,
-      setTestResult
+      yourOutput,
+      setYourOutput,
+      testSuccess,
+      setTestSuccess
     }),
-    [testResult, setTestResult]
+    [yourOutput, setYourOutput, testSuccess, setTestSuccess]
   );
   return (
     <Container>
@@ -38,13 +39,12 @@ const LeftBlock = () => {
         <Content content={testQuestion} />
         <Content content={testConstraint} />
       </QuestionContainer>
-      
+
       <Title title="테스트케이스" />
       <TestcaseContainer>
         {testcase.map((item) => (
           <TestSuccessContext.Provider value={value}>
-            <SubTitle subTitle={item.title} output={item.output} />
-            <TestcaseContent input={item.input} output={item.output} />
+            <TestcaseBlock subTitle={item.title} input={item.input} output={item.output} />
           </TestSuccessContext.Provider>
         ))}
       </TestcaseContainer>

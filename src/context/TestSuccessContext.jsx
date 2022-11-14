@@ -1,8 +1,10 @@
 import * as React from 'react';
 
 const TestSuccessContext = React.createContext({
-  testResult: false,
-  setTestResult: () => {}
+  yourOutput: '',
+  setYourOutput: () => {},
+  testSuccess: false,
+  setTestSuccess: () => {}
 });
 
 export default TestSuccessContext;
