@@ -71,7 +71,7 @@ const Container = styled(Box)`
   }
   &::-webkit-scrollbar-thumb {
     background-color: #b2c0cc;
-   
+
     border-radius: 10px;
   }
   &::-webkit-scrollbar-track {

@@ -4,6 +4,7 @@ import ResponsiveAppBar from '../components/common/Appbar/Appbar';
 import ResultEditor from '../components/CustomEditor/ResultEditor';
 // import ScoreBlock from '../components/Main/RightBlock/Result/ScoreBlock';
 import RightBlock from '../components/Main/RightBlock/RightBlock';
+import Test from '../components/Main/RightBlock/test';
 
 const Result = () => {
   return (
@@ -15,6 +16,7 @@ const Result = () => {
           <ResultEditor />
         </ColumnContainer>
       </MainContainer>
+      <Test />
     </MainWrapper>
   );
 };
@@ -26,7 +28,7 @@ const MainWrapper = styled.div`
     width: 8px;
   }
   &::-webkit-scrollbar-thumb {
-    background-color: #b2c0cc;         
+    background-color: #b2c0cc;
     border-radius: 10px;
   }
   &::-webkit-scrollbar-track {

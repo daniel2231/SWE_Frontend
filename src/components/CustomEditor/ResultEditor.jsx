@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useLocation } from 'react-router-dom';
-import Editor from '@monaco-editor/react';
+import { DiffEditor } from '@monaco-editor/react';
 import styled from '@emotion/styled';
 import Box from '@mui/material/Box';
 import { Typography } from '@mui/material';
@@ -9,6 +9,10 @@ import ReferenceContent from './ReferenceContent';
 import { getItem } from './localStorage';
 
 const ResultEditor = () => {
+  const goodCode = `def good(n):
+  print(n)
+good(1)
+  `;
   const { state } = useLocation();
   const [myCode, setMyCode] = React.useState('');
   React.useEffect(() => {
@@ -21,17 +25,14 @@ const ResultEditor = () => {
         <Typography sx={{ fontSize: '20px', fontWeight: 'bold' }}>입력 코드</Typography>
       </TitleButtonBar>
 
-      <EditorContainer>
-        <Editor height="36vh" value={myCode} theme="vs-dark" options={{ readOnly: true }} />
-        <Editor
-          height="36vh"
-          defaultLanguage="python"
-          // value={saveContent[currentLabel] || skeletonCode}
-          // onChange={handleEditorChange}
-          theme="vs-dark"
-          options={{ readOnly: true }}
-        />
-      </EditorContainer>
+      <DiffEditor
+        height="36vh"
+        defaultLanguage="python"
+        original={myCode}
+        modified={goodCode}
+        theme="vs-dark"
+        options={{ readOnly: true }}
+      />
 
       <Title title="코드 설명 및 참고자료" />
       <Terminal>
@@ -66,12 +67,6 @@ const TitleButtonBar = styled(Box)`
   width: 100%;
 `;
 
-const EditorContainer = styled(Box)`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-`;
 const Terminal = styled(Box)`
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -79,7 +74,7 @@ const Terminal = styled(Box)`
   padding: 10px 20px;
   color: white;
   border-bottom: 1px solid black;
-  height: 100%;
+  height:80%;
 `;
 
 export default ResultEditor;
