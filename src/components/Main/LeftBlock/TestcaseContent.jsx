@@ -24,7 +24,7 @@ const TestcaseContent = ({ input = '', output = '', yourOutput = '', success = f
         <p />
         <p />
         <Label labelTitle="Your Output" />
-        <Label output={yourOutput} success={success} />
+        <Label yourOutput={yourOutput} success={success} />
       </LabelBox>
     </Box>
   );
@@ -45,7 +45,10 @@ const Label = ({ labelTitle = '', input = '', output = '', yourOutput = '', succ
       )}
       {input && <Typography>{input}</Typography>}
       {output && <Typography>{output}</Typography>}
-      {yourOutput && <Typography sx={{ color: success ? 'blue' : 'red' }}>{yourOutput}</Typography>}
+      {yourOutput &&
+        yourOutput.map((item) => (
+          <Typography sx={{ color: success ? 'blue' : 'red' }}>{item}</Typography>
+        ))}
     </Box>
   );
 };

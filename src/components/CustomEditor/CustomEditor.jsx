@@ -261,6 +261,8 @@ const BottomBar = styled(Box)`
   padding: 10px 20px;
   border-bottom: 1px solid black;
   width: 100%;
+  height: 50px;
+  
 `;
 const ActionButton = styled(Button)`
   font-size: 14px;

@@ -7,6 +7,7 @@ import { Typography } from '@mui/material';
 import Title from '../Main/LeftBlock/Title';
 import ReferenceContent from './ReferenceContent';
 import { getItem } from './localStorage';
+import CodeExplanation from './CodeExplanation';
 
 const ResultEditor = () => {
   const goodCode = `def good(n):
@@ -37,7 +38,7 @@ good(1)
       <Title title="코드 설명 및 참고자료" />
       <Terminal>
         <Box sx={{ fontSize: '15px', borderRight: '1px solid black' }}>
-          <ReferenceContent />
+          <CodeExplanation />
         </Box>
         <Box sx={{ fontSize: '15px', overflow: 'auto' }}>
           <ReferenceContent />
@@ -74,7 +75,7 @@ const Terminal = styled(Box)`
   padding: 10px 20px;
   color: white;
   border-bottom: 1px solid black;
-  height:80%;
+  height: 80%;
 `;
 
 export default ResultEditor;

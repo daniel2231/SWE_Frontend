@@ -12,9 +12,8 @@ import Button from '@mui/material/Button';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import SettingsIcon from '@mui/icons-material/Settings';
-
+import AddToQueueOutlinedIcon from '@mui/icons-material/AddToQueueOutlined';
 import Drawer from '@mui/material/Drawer';
 import ToggleBtn from '../RightDrawer/ToggleBtn';
 
@@ -46,7 +45,10 @@ const ResponsiveAppBar = ({ menuDisplay = false }) => {
     <AppBar>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <AddToQueueOutlinedIcon
+            fontSize="large"
+            sx={{ display: { xs: 'none', md: 'flex' }, mr: 2 }}
+          />
           <Typography
             variant="h6"
             noWrap
@@ -100,7 +102,11 @@ const ResponsiveAppBar = ({ menuDisplay = false }) => {
             </Menu>
           </Box>
 
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          <AddToQueueOutlinedIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          <AddToQueueOutlinedIcon
+            fontSize="large"
+            sx={{ display: { xs: 'flex', md: 'none' }, mr: 2 }}
+          />
           <Typography
             variant="h5"
             noWrap
