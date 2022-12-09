@@ -73,17 +73,12 @@ const TestcaseBlock = ({ subTitle = '', input = '', output = '' }) => {
             }}
             onClick={handleTestButton}
           >
-            검증
+            채점
           </Button>
         </Box>
       </Box>
 
-      <TestcaseContent
-        input={input}
-        output={output}
-        yourOutput={returnValueValue.returnValue}
-        success={testSuccess}
-      />
+      <TestcaseContent input={input} output={output} yourOutput={output} success={testSuccess} />
     </>
   );
 };

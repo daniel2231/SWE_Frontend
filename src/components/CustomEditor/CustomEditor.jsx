@@ -14,6 +14,7 @@ import { getItem, setItem } from './localStorage';
 import Title from '../Main/LeftBlock/Title';
 import Pyodide from '../../utils/Pyodide';
 import ReturnValueContext from '../../context/ReturnValueContext';
+import ReturnErrorContext from '../../context/ReturnErrorContext';
 import useConfirm from '../../utils/useConfirm';
 import CurrentCodeLabelNumberContext from '../../context/CurrentCodeLabelNumberContext';
 
@@ -122,15 +123,15 @@ const CustomEditor = () => {
     window.URL.revokeObjectURL(url);
   };
 
-  const navigate = useNavigate();
-
   const returnValue = React.useContext(ReturnValueContext);
+  const returnError = React.useContext(ReturnErrorContext);
 
   const handleRunButton = () => {
-    Pyodide(getItem(currentCodeLabelNumberValue.currentCodeLabelNumber), returnValue);
+    Pyodide(getItem(currentCodeLabelNumberValue.currentCodeLabelNumber), returnValue, returnError);
   };
   const handleGradeButton = () => {};
 
+  const navigate = useNavigate();
   const onConfirm = () => {
     navigate('/result', {
       state: { currentCodeLabelNumber: currentCodeLabelNumberValue.currentCodeLabelNumber }
@@ -179,17 +180,21 @@ const CustomEditor = () => {
         value={saveContent[currentCodeLabelNumberValue.currentCodeLabelNumber] || skeletonCode}
         onChange={handleEditorChange}
         theme="vs-dark"
+        options={{ fontLigatures: true, fontFamily: 'Times' }}
       />
 
       <Title title="실행 결과" />
       <Terminal>
-        {returnValue.returnValue ? (
+        {returnValue.returnValue || returnError.returnError ? (
           <Typography sx={{ fontSize: '15px', color: 'white' }}>
             Terminal &gt;&gt; python solution.py <br />
             <br />
-            {returnValue.returnValue.map((value) => (
-              <Typography>{value}</Typography>
-            ))}
+            {returnValue.returnValue &&
+              returnValue.returnValue.map((value) => <Typography>{value}</Typography>)}
+            {returnError.returnError &&
+              returnError.returnError.map((value) => (
+                <Typography sx={{ color: 'red' }}>{value}</Typography>
+              ))}
           </Typography>
         ) : (
           <Typography sx={{ fontSize: '15px', color: '#78909C', letterSpacing: '-1px' }}>
@@ -262,7 +267,6 @@ const BottomBar = styled(Box)`
   border-bottom: 1px solid black;
   width: 100%;
   height: 50px;
-  
 `;
 const ActionButton = styled(Button)`
   font-size: 14px;

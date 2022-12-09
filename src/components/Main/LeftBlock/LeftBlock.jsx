@@ -13,10 +13,10 @@ const testConstraint = ['0 <= n <= 80', '리턴 타입이 int가 아니라는 �
 // input: 임시, 아마 채점 버튼 눌렀을 때 context로 가져와야 되지 않을까
 // output: 테스트케이스의 올바른 output
 const testcase = [
-  { title: '테스트케이스 1', input: 'solution(0)', output: 0 },
-  { title: '테스트케이스 2', input: 'solution(2)', output: 2 },
-  { title: '테스트케이스 3', input: 'solution(3)', output: 3 },
-  { title: '테스트케이스 4', input: 'solution(4)', output: 4 }
+  { title: '테스트케이스 1', input: '0', output: 0 },
+  { title: '테스트케이스 2', input: '2', output: 2 },
+  { title: '테스트케이스 3', input: '3', output: 3 },
+  { title: '테스트케이스 4', input: '4', output: 4 }
 ];
 
 const LeftBlock = () => {

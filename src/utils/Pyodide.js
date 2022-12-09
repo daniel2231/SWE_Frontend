@@ -1,6 +1,7 @@
-async function main(code, returnValueContext) {
+async function main(code, returnValueContext, returnErrorContext) {
   const result = [];
   let error = [];
+
   const pyodide = await window.loadPyodide({
     stdin: window.prompt,
     stdout: (text) => {
@@ -12,6 +13,8 @@ async function main(code, returnValueContext) {
   });
 
   try {
+    returnValueContext.setReturnValue('');
+    returnErrorContext.setReturnError('');
     pyodide.runPython(code);
     returnValueContext.setReturnValue(result);
   } catch (e) {
@@ -22,14 +25,15 @@ async function main(code, returnValueContext) {
   }
 
   if (error) return error;
-  return result;
+  return 0;
 }
 
-export default function Pyodide(codeString, returnValueContext) {
-  // const promise1 = main(codeString, returnValueContext);
-  main(codeString, returnValueContext);
-  // promise1.then((value) => {
-  //   console.log(value);
-  //   returnValueContext.setReturnValue(value);
-  // });
+export default function Pyodide(codeString, returnValueContext, returnErrorContext) {
+  const promise1 = main(codeString, returnValueContext, returnErrorContext);
+  // console.log(returnErrorContext);
+  // main(codeString, returnValueContext, returnErrorContext);
+  // console.log(returnErrorContext.returnError);
+  promise1.then((value) => {
+    if (typeof value === 'object') returnErrorContext.setReturnError(value);
+  });
 }

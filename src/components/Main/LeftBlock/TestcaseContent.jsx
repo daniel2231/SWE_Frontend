@@ -45,7 +45,9 @@ const Label = ({ labelTitle = '', input = '', output = '', yourOutput = '', succ
       )}
       {input && <Typography>{input}</Typography>}
       {output && <Typography>{output}</Typography>}
+      {/* 수정하기  */}
       {yourOutput &&
+        typeof yourOutput === 'string' &&
         yourOutput.map((item) => (
           <Typography sx={{ color: success ? 'blue' : 'red' }}>{item}</Typography>
         ))}

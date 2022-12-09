@@ -4,6 +4,7 @@ import ResponsiveAppBar from '../components/common/Appbar/Appbar';
 import CustomEditor from '../components/CustomEditor/CustomEditor';
 import LeftBlock from '../components/Main/LeftBlock/LeftBlock';
 import ReturnValueContext from '../context/ReturnValueContext';
+import ReturnErrorContext from '../context/ReturnErrorContext';
 import CurrentCodeLabelNumberContext from '../context/CurrentCodeLabelNumberContext';
 
 const Questions = () => {
@@ -16,6 +17,14 @@ const Questions = () => {
     [returnValue, setReturnValue]
   );
 
+  const [returnError, setReturnError] = React.useState('');
+  const returnErrorValue = React.useMemo(
+    () => ({
+      returnError,
+      setReturnError
+    }),
+    [returnError, setReturnError]
+  );
   const [currentCodeLabelNumber, setCurrentCodeLabelNumber] = React.useState(1);
   const currentCodeLabelNumberValue = React.useMemo(
     () => ({
@@ -27,17 +36,19 @@ const Questions = () => {
 
   return (
     <ReturnValueContext.Provider value={returnValueValue}>
-      <CurrentCodeLabelNumberContext.Provider value={currentCodeLabelNumberValue}>
-        <MainWrapper>
-          <ResponsiveAppBar menuDisplay />
-          <MainContainer>
-            <ColumnContainer>
-              <LeftBlock />
-              <CustomEditor />
-            </ColumnContainer>
-          </MainContainer>
-        </MainWrapper>
-      </CurrentCodeLabelNumberContext.Provider>
+      <ReturnErrorContext.Provider value={returnErrorValue}>
+        <CurrentCodeLabelNumberContext.Provider value={currentCodeLabelNumberValue}>
+          <MainWrapper>
+            <ResponsiveAppBar menuDisplay />
+            <MainContainer>
+              <ColumnContainer>
+                <LeftBlock />
+                <CustomEditor />
+              </ColumnContainer>
+            </MainContainer>
+          </MainWrapper>
+        </CurrentCodeLabelNumberContext.Provider>
+      </ReturnErrorContext.Provider>
     </ReturnValueContext.Provider>
   );
 };
