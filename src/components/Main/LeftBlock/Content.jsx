@@ -5,13 +5,13 @@ import styled from '@emotion/styled';
 const Content = ({ content }) => {
   if (typeof content === 'object')
     return (
-      <Container sx={{ minHeight: 130 }}>
+      <Container>
         {content.map((item) => (
           <li key={item}>{item}</li>
         ))}
       </Container>
     );
-  return <Container sx={{ minHeight: 130 }}>{content}</Container>;
+  return <Container sx={{minHeight: 250}}>{content}</Container>;
 };
 
 const Container = styled(Box)`

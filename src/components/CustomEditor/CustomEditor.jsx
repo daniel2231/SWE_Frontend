@@ -175,46 +175,48 @@ const CustomEditor = () => {
       </TitleButtonBar>
 
       <Editor
-        height="49vh"
+        height="100%"
         defaultLanguage="python"
         value={saveContent[currentCodeLabelNumberValue.currentCodeLabelNumber] || skeletonCode}
         onChange={handleEditorChange}
         theme="vs-dark"
-        options={{ fontLigatures: true, fontFamily: 'Times' }}
+        options={{ fontLigatures: true, fontFamily: 'Times New Roman', fontSize: '18px' }}
       />
 
-      <Title title="실행 결과" />
-      <Terminal>
-        {returnValue.returnValue || returnError.returnError ? (
-          <Typography sx={{ fontSize: '15px', color: 'white' }}>
-            Terminal &gt;&gt; python solution.py <br />
-            <br />
-            {returnValue.returnValue &&
-              returnValue.returnValue.map((value) => <Typography>{value}</Typography>)}
-            {returnError.returnError &&
-              returnError.returnError.map((value) => (
-                <Typography sx={{ color: 'red' }}>{value}</Typography>
-              ))}
-          </Typography>
-        ) : (
-          <Typography sx={{ fontSize: '15px', color: '#78909C', letterSpacing: '-1px' }}>
-            실행 결과가 여기에 표시됩니다.
-          </Typography>
-        )}
-      </Terminal>
+      <ContentContainer>
+        <Title title="실행 결과" />
+        <Terminal>
+          {returnValue.returnValue || returnError.returnError ? (
+            <Typography sx={{ fontSize: '15px', color: 'white' }}>
+              Terminal &gt;&gt; python solution.py <br />
+              <br />
+              {returnValue.returnValue &&
+                returnValue.returnValue.map((value) => <Typography>{value}</Typography>)}
+              {returnError.returnError &&
+                returnError.returnError.map((value) => (
+                  <Typography sx={{ color: 'red' }}>{value}</Typography>
+                ))}
+            </Typography>
+          ) : (
+            <Typography sx={{ fontSize: '15px', color: '#78909C', letterSpacing: '-1px' }}>
+              실행 결과가 여기에 표시됩니다.
+            </Typography>
+          )}
+        </Terminal>
 
-      <BottomBar>
-        <Box sx={{ display: 'flex', gap: 3 }}>
-          <Box sx={{ display: 'flex', gap: 1 }}>
-            <ActionButton onClick={handleRunButton}>터미널 실행</ActionButton>
-            <ActionButton onClick={handleGradeButton}>테스트케이스 채점</ActionButton>
+        <BottomBar>
+          <Box sx={{ display: 'flex', gap: 3 }}>
+            <Box sx={{ display: 'flex', gap: 1 }}>
+              <ActionButton onClick={handleRunButton}>터미널 실행</ActionButton>
+              <ActionButton onClick={handleGradeButton}>테스트케이스 채점</ActionButton>
+            </Box>
+
+            <ActionButton style={{ backgroundColor: '#409BFF' }} onClick={handleSubmitButton}>
+              제출
+            </ActionButton>
           </Box>
-
-          <ActionButton style={{ backgroundColor: '#409BFF' }} onClick={handleSubmitButton}>
-            제출
-          </ActionButton>
-        </Box>
-      </BottomBar>
+        </BottomBar>
+      </ContentContainer>
     </BigContainer>
   );
 };
@@ -222,7 +224,7 @@ const CustomEditor = () => {
 const BigContainer = styled(Box)`
   display: flex;
   flex-direction: column;
-  height: 100;
+  height: 100%;
 `;
 
 const TitleButtonBar = styled(Box)`
@@ -249,13 +251,20 @@ const Label = styled(Box)`
   }
 `;
 
+const ContentContainer = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+`;
+
 const Terminal = styled(Box)`
   background-color: #263747;
   padding: 10px 20px;
   color: white;
   border-bottom: 1px solid black;
-  height: 20vh;
+  height: 68%;
   overflow: auto;
+  min-height: 72%;
 `;
 const BottomBar = styled(Box)`
   display: flex;
@@ -266,7 +275,7 @@ const BottomBar = styled(Box)`
   padding: 10px 20px;
   border-bottom: 1px solid black;
   width: 100%;
-  height: 50px;
+  height: 15%;
 `;
 const ActionButton = styled(Button)`
   font-size: 14px;

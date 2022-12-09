@@ -22,18 +22,22 @@ const testcase = [
 const LeftBlock = () => {
   return (
     <Container>
-      <Title title="문제 & 참조/제약사항" />
-      <QuestionContainer>
-        <Content content={testQuestion} />
-        <Content content={testConstraint} />
-      </QuestionContainer>
+      <ContentContainer>
+        <Title title="문제 & 참조/제약사항" />
+        <QuestionContainer>
+          <Content content={testQuestion} />
+          <Content content={testConstraint} />
+        </QuestionContainer>
+      </ContentContainer>
 
-      <Title title="테스트케이스" />
-      <TestcaseContainer>
-        {testcase.map((item) => (
-          <TestcaseBlock subTitle={item.title} input={item.input} output={item.output} />
-        ))}
-      </TestcaseContainer>
+      <ContentContainer>
+        <Title title="테스트케이스" />
+        <TestcaseContainer>
+          {testcase.map((item) => (
+            <TestcaseBlock subTitle={item.title} input={item.input} output={item.output} />
+          ))}
+        </TestcaseContainer>
+      </ContentContainer>
     </Container>
   );
 };
@@ -42,29 +46,21 @@ const Container = styled(Box)`
   display: flex;
   flex-direction: column;
   height: 100%;
+  background-color: #263747;
+`;
+
+const ContentContainer = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 `;
 
 const QuestionContainer = styled(Box)`
   background-color: #263747;
   color: white;
-  height: 36vh;
+  padding-bottom: 15px;
+  height: 100%;
   overflow: auto;
-  &::-webkit-scrollbar {
-    width: 8px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: #b2c0cc;
-    border-radius: 10px;
-  }
-  &::-webkit-scrollbar-track {
-    background-color: #263747;
-  }
-`;
-const TestcaseContainer = styled(Box)`
-  overflow-x: hidden;
-  background-color: #263747;
-  color: white;
-  height: 40vh;
 
   &::-webkit-scrollbar {
     width: 8px;
@@ -77,4 +73,24 @@ const TestcaseContainer = styled(Box)`
     background-color: #263747;
   }
 `;
+
+const TestcaseContainer = styled(Box)`
+  overflow-x: hidden;
+  background-color: #263747;
+  color: white;
+  overflow-y: auto;
+  height: 350px;
+  min-height: 417px;
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #b2c0cc;
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: #263747;
+  }
+`;
+
 export default LeftBlock;

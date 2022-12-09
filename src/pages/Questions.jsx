@@ -38,50 +38,49 @@ const Questions = () => {
     <ReturnValueContext.Provider value={returnValueValue}>
       <ReturnErrorContext.Provider value={returnErrorValue}>
         <CurrentCodeLabelNumberContext.Provider value={currentCodeLabelNumberValue}>
-          <MainWrapper>
-            <ResponsiveAppBar menuDisplay />
-            <MainContainer>
-              <ColumnContainer>
-                <LeftBlock />
-                <CustomEditor />
-              </ColumnContainer>
-            </MainContainer>
-          </MainWrapper>
+          <ResponsiveAppBar menuDisplay />
+
+          <MainContainer>
+            <LeftBlock />
+            <CustomEditor />
+          </MainContainer>
         </CurrentCodeLabelNumberContext.Provider>
       </ReturnErrorContext.Provider>
     </ReturnValueContext.Provider>
   );
 };
 
-const MainWrapper = styled.div`
-  height: 100vh;
-  overflow: auto;
-  &::-webkit-scrollbar {
-    width: 8px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: #b2c0cc;
-    border-radius: 10px;
-  }
-  &::-webkit-scrollbar-track {
-    background-color: #263747;
-  }
-`;
+// const MainWrapper = styled.div`
+//   height: 100vh;
+//   background-color: #263747;
+//   overflow: scroll;
+//   &::-webkit-scrollbar {
+//     width: 8px;
+//   }
+//   &::-webkit-scrollbar-thumb {
+//     background-color: #b2c0cc;
+//     border-radius: 10px;
+//   }
+//   &::-webkit-scrollbar-track {
+//     background-color: #263747;
+//   }
+// `;
 
 const MainContainer = styled.div`
-  padding-top: 69px;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  height: 100%;
-`;
-
-const ColumnContainer = styled.div`
+  margin-top: 69px;
   display: grid;
   grid-template-columns: 1fr 3fr;
-  border-left: 1px solid black;
   height: 100%;
-  width: 100%;
+  overflow: hidden;
 `;
+
+// const ColumnContainer = styled.div`
+//   display: grid;
+//   grid-template-columns: 1fr 3fr;
+//   border-left: 1px solid black;
+//   width: 100%;
+//   height: 80vh;
+//   background-color: yellow;
+// `;
 
 export default Questions;
