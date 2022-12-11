@@ -1,23 +1,23 @@
 import * as React from 'react';
+
 import AppBar from '@mui/material/AppBar';
+import { Link } from 'react-router-dom';
+
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
+import Button from '@mui/material/Button';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import SettingsIcon from '@mui/icons-material/Settings';
-
+import AddToQueueOutlinedIcon from '@mui/icons-material/AddToQueueOutlined';
 import Drawer from '@mui/material/Drawer';
 import ToggleBtn from '../RightDrawer/ToggleBtn';
 
-const pages = ['Products', 'Pricing', 'Blog'];
-
-const ResponsiveAppBar = () => {
+const ResponsiveAppBar = ({ menuDisplay = false }) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
@@ -45,7 +45,10 @@ const ResponsiveAppBar = () => {
     <AppBar>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <AddToQueueOutlinedIcon
+            fontSize="large"
+            sx={{ display: { xs: 'none', md: 'flex' }, mr: 2 }}
+          />
           <Typography
             variant="h6"
             noWrap
@@ -93,14 +96,17 @@ const ResponsiveAppBar = () => {
                 display: { xs: 'block', md: 'none' }
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
+              <MenuItem key="코딩테스트 연습" onClick={handleCloseNavMenu}>
+                <Typography textAlign="center">코딩테스트 연습</Typography>
+              </MenuItem>
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+
+          <AddToQueueOutlinedIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          <AddToQueueOutlinedIcon
+            fontSize="large"
+            sx={{ display: { xs: 'flex', md: 'none' }, mr: 2 }}
+          />
           <Typography
             variant="h5"
             noWrap
@@ -119,19 +125,68 @@ const ResponsiveAppBar = () => {
           >
             LOGO
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
+
+          <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+            <Link to="/questions" style={{ textDecoration: 'none' }}>
               <Button
-                key={page}
+                key="코딩테스트 연습"
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                {page}
+                코딩테스트 연습
               </Button>
-            ))}
+            </Link>
+            {menuDisplay && (
+              <>
+                <Typography
+                  sx={{
+                    padding: '1px 1px',
+                    color: 'white',
+                    letterSpacing: '-1px',
+                    fontSize: '13px'
+                  }}
+                >
+                  &gt; 소프트웨어공학&nbsp;
+                </Typography>
+                <Typography
+                  sx={{
+                    padding: '1px 1px',
+                    color: 'white',
+                    letterSpacing: '-1px',
+                    fontSize: '13px'
+                  }}
+                >
+                  &gt; 피보나치 수
+                </Typography>
+              </>
+            )}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
+          {menuDisplay && (
+            <Box
+              sx={{
+                flexGrow: 1,
+                display: { xs: 'none', md: 'flex' },
+                justifyContent: 'flex-end'
+              }}
+            >
+              <Box
+                sx={{
+                  backgroundColor: '#D1D7E5',
+                  padding: '1px 20px',
+                  borderRadius: '5px',
+                  color: 'black',
+                  fontWeight: 'bold',
+                  letterSpacing: '-1px',
+                  fontSize: '15px'
+                }}
+              >
+                2d 30h 30m 남음
+              </Box>
+            </Box>
+          )}
+
+          <Box sx={{ flexGrow: 0, display: 'flex', justifyContent: 'flex-end' }}>
             <IconButton
               size="large"
               aria-label="search"

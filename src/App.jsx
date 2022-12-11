@@ -5,6 +5,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import Home from './pages/Home';
 import Questions from './pages/Questions';
+import Result from './pages/Result';
 
 import ThemeContext from './context/ThemeContext';
 
@@ -25,13 +26,19 @@ const App = () => {
         palette: {
           mode,
           primary: {
-            main: '#006828',
+            main: '#111E28',
             contrastText: 'rgba(255,255,255,0.87)'
           },
           secondary: {
             main: '#d4af37',
             contrastText: 'rgba(0,0,0,0.87)'
           }
+        },
+        typography: {
+          fontFamily: '"Noto Sans KR", sans-serif',
+          fontWeightLight: 300,
+          fontWeightRegular: 500,
+          fontWeightBold: 700
         }
       }),
     [mode]
@@ -44,6 +51,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/questions" element={<Questions />} />
+          <Route path="/result" element={<Result />} />
         </Routes>
       </ThemeProvider>
     </ThemeContext.Provider>
