@@ -3,7 +3,8 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import styled from '@emotion/styled';
 
-const TestcaseContent = ({ input = '', output = '', yourOutput = '', success = false }) => {
+
+const TestcaseContent = ({ input = '', output = '', yourOutput = '' }) => {
   return (
     <Box
       sx={{
@@ -24,7 +25,7 @@ const TestcaseContent = ({ input = '', output = '', yourOutput = '', success = f
         <p />
         <p />
         <Label labelTitle="Your Output" />
-        <Label yourOutput={yourOutput} success={success} />
+        <Label yourOutput={yourOutput.test_answer} />
       </LabelBox>
     </Box>
   );
@@ -37,7 +38,7 @@ const LabelBox = styled(Box)`
   font-size: 14px;
 `;
 
-const Label = ({ labelTitle = '', input = '', output = '', yourOutput = '', success = false }) => {
+const Label = ({ labelTitle = '', input = '', output = '', yourOutput = '' }) => {
   return (
     <Box sx={{ width: 150, textAlign: 'center' }}>
       {labelTitle && (
@@ -46,11 +47,7 @@ const Label = ({ labelTitle = '', input = '', output = '', yourOutput = '', succ
       {input && <Typography>{input}</Typography>}
       {output && <Typography>{output}</Typography>}
       {/* 수정하기  */}
-      {yourOutput &&
-        typeof yourOutput === 'string' &&
-        yourOutput.map((item) => (
-          <Typography sx={{ color: success ? 'blue' : 'red' }}>{item}</Typography>
-        ))}
+      {yourOutput && <Typography>{yourOutput}</Typography>}
     </Box>
   );
 };

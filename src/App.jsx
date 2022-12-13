@@ -50,8 +50,8 @@ const App = () => {
         <CssBaseline />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/questions" element={<Questions />} />
-          <Route path="/result" element={<Result />} />
+          <Route path="/questions/:id" element={<Questions />} />
+          <Route path="/result/:id" element={<Result />} />
         </Routes>
       </ThemeProvider>
     </ThemeContext.Provider>

@@ -4,11 +4,10 @@ import styled from '@emotion/styled';
 import FunctionTest from './Result/FunctionTest';
 import EfficiencyTest from './Result/EfficiencyTest';
 import ReadabilityTest from './Result/ReadabilityTest';
-import DonutGraph from './Result/DonutGraph';
 
-const RightBlock = () => {
+const RightBlock = (props) => {
   const donutData = [
-    { title: '기능', value: 40, color: '#00B0F0' },
+    { title: '기능', value: 1, color: '#00B0F0' },
     { title: '효율', value: 25, color: '#92D050' },
     { title: '가독성 ', value: 15, color: '#FFC000' }
   ];
@@ -23,9 +22,6 @@ const RightBlock = () => {
           최종성적: {totalScore}점
         </Typography>
         <Grid container spacing={8}>
-          <Grid item xs={6}>
-            <DonutGraph data={donutData} />
-          </Grid>
           <Grid item xs={6}>
             <ScoreLabelContainer>
               <Box>
@@ -42,7 +38,7 @@ const RightBlock = () => {
             <Box sx={{ marginLeft: '1rem' }}>
               <Box sx={{ display: 'flex', flexDirection: 'row', gap: '2rem', padding: '5px' }}>
                 <LabelText style={{ color: 'red' }}>표절율</LabelText>
-                <LabelText style={{ color: 'red' }}>25%</LabelText>
+                <LabelText style={{ color: 'red' }}>{props.resultData.copy} %</LabelText>
               </Box>
             </Box>
           </Grid>
@@ -50,13 +46,13 @@ const RightBlock = () => {
       </ContentBox>
 
       <SubTitle>기능 테스트</SubTitle>
-      <FunctionTest />
+      <FunctionTest data={props.resultData} />
 
       <SubTitle>효율성 테스트</SubTitle>
-      <EfficiencyTest />
+      <EfficiencyTest data={props.resultData}/>
 
       <SubTitle>가독성 테스트</SubTitle>
-      <ReadabilityTest />
+      <ReadabilityTest data={props.resultData}/>
     </Container>
   );
 };

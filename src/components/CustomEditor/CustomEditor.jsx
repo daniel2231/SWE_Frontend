@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import Editor from '@monaco-editor/react';
 import styled from '@emotion/styled';
@@ -17,20 +17,18 @@ import ReturnValueContext from '../../context/ReturnValueContext';
 import ReturnErrorContext from '../../context/ReturnErrorContext';
 import useConfirm from '../../utils/useConfirm';
 import CurrentCodeLabelNumberContext from '../../context/CurrentCodeLabelNumberContext';
+import TestcaseResultsContext from '../../context/TestcaseResultsContext';
 
-const skeletonCode = `def solution(n):
-  print(n)
-solution(1)
-`;
 const saveLabelNumber = [1, 2, 3];
 
-const CustomEditor = () => {
+const CustomEditor = (props) => {
+  const { id } = useParams();
   const currentCodeLabelNumberValue = React.useContext(CurrentCodeLabelNumberContext);
 
   const [saveContent, setSaveContent] = React.useState({
-    1: getItem(1) || skeletonCode,
-    2: getItem(2) || skeletonCode,
-    3: getItem(3) || skeletonCode
+    1: getItem(1) || props.skeletonCode,
+    2: getItem(2) || props.skeletonCode,
+    3: getItem(3) || props.skeletonCode
   });
 
   React.useEffect(() => {
@@ -90,9 +88,9 @@ const CustomEditor = () => {
   const handleResetButton = () => {
     setSaveContent((prev) => ({
       ...prev,
-      [currentCodeLabelNumberValue.currentCodeLabelNumber]: skeletonCode
+      [currentCodeLabelNumberValue.currentCodeLabelNumber]: props.skeletonCode
     }));
-    setItem(currentCodeLabelNumberValue.currentCodeLabelNumber, skeletonCode);
+    setItem(currentCodeLabelNumberValue.currentCodeLabelNumber, props.skeletonCode);
   };
 
   const handleCopyButton = () => {
@@ -115,7 +113,7 @@ const CustomEditor = () => {
     // 다운로드 기능만 수행하는 a 태그 생성
     const a = document.createElement('a');
     a.href = url;
-    a.download = `file${currentCodeLabelNumberValue.currentCodeLabelNumber}.js`;
+    a.download = `file${currentCodeLabelNumberValue.currentCodeLabelNumber}.py`;
     a.click();
 
     // 태그 및 url 삭제: 메모리 누수 방지
@@ -125,15 +123,33 @@ const CustomEditor = () => {
 
   const returnValue = React.useContext(ReturnValueContext);
   const returnError = React.useContext(ReturnErrorContext);
+  const { setTestcaseResult } = React.useContext(TestcaseResultsContext);
 
   const handleRunButton = () => {
     Pyodide(getItem(currentCodeLabelNumberValue.currentCodeLabelNumber), returnValue, returnError);
   };
-  const handleGradeButton = () => {};
+
+  const handleGradeButton = () => {
+    console.log(saveContent[currentCodeLabelNumberValue.currentCodeLabelNumber]);
+    fetch(`http://127.0.0.1:8000/unittests/result/${id}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        option: 0,
+        code_submitted: saveContent[currentCodeLabelNumberValue.currentCodeLabelNumber]
+      })
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        setTestcaseResult(res.unittest_result);
+      });
+  };
 
   const navigate = useNavigate();
   const onConfirm = () => {
-    navigate('/result', {
+    navigate('/result/1', {
       state: { currentCodeLabelNumber: currentCodeLabelNumberValue.currentCodeLabelNumber }
     });
   };
@@ -177,10 +193,12 @@ const CustomEditor = () => {
       <Editor
         height="100%"
         defaultLanguage="python"
-        value={saveContent[currentCodeLabelNumberValue.currentCodeLabelNumber] || skeletonCode}
+        value={
+          saveContent[currentCodeLabelNumberValue.currentCodeLabelNumber] || props.skeletonCode
+        }
         onChange={handleEditorChange}
         theme="vs-dark"
-        options={{ fontLigatures: true, fontFamily: 'Times New Roman', fontSize: '18px' }}
+        options={{ fontLigatures: true, fontFamily: 'Fira Code', fontSize: '18px' }}
       />
 
       <ContentContainer>

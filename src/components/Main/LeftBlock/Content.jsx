@@ -20,6 +20,7 @@ const Container = styled(Box)`
   color: white;
   background-color: #263747;
   border-right: 1px solid black;
+  white-space: pre-line;
 `;
 
 export default Content;

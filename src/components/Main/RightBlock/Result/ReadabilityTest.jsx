@@ -2,39 +2,14 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { Box, Grid, Typography } from '@mui/material';
 
-const ReadabilityTest = () => {
-  const readabilityList = [
-    {
-      title: 'mypy',
-      contents: [],
-      totalScore: 20,
-      yourScore: 20
-    },
-    {
-      title: 'pylint',
-      contents: [
-        'Missing docstring in public module',
-        'Formatting a regular string which could be a f-string'
-      ],
-      totalScore: 20,
-      yourScore: 18
-    },
-    {
-      title: 'pylint',
-      contents: [
-        'Missing docstring in public module',
-        'Formatting a regular string which could be a f-string'
-      ],
-      totalScore: 20,
-      yourScore: 18
-    }
-  ];
+const ReadabilityTest = (props) => {
+  const cleanData = props.data;
 
   return (
     <Container>
       <Grid container>
         <Grid item xs={10}>
-          <TableLeftData sx={{ fontWeight: 'bold' }}>항목</TableLeftData>
+          <TableLabel sx={{ fontWeight: 'bold' }}>항목</TableLabel>
         </Grid>
         <Grid item xs={2}>
           <TableLabel>점수</TableLabel>
@@ -42,34 +17,20 @@ const ReadabilityTest = () => {
       </Grid>
       <Grid container sx={{ borderBottom: '1px solid black' }}>
         <Grid item xs={10}>
-          <TableLeftData sx={{ fontWeight: 'bold' }}>점수</TableLeftData>
+          <TableLabel sx={{ fontWeight: 'bold' }}>점수</TableLabel>
         </Grid>
       </Grid>
-
-      {readabilityList.map((item) => (
-        <>
-          <Grid container>
-            <Grid item xs={10}>
-              <TableLeftData sx={{ fontWeight: 'bold' }}>{item.title}</TableLeftData>
-            </Grid>
-            <Grid item xs={2}>
-              <TableLabel
-                sx={{ color: item.yourScore === item.totalScore ? '#4557FE' : '#ED2418' }}
-              >
-                {item.yourScore}/{item.totalScore}
-              </TableLabel>
-            </Grid>
+      {Object.keys(cleanData.readability).map((item) => (
+        <Grid container>
+          <Grid item xs={10}>
+            <TableLeftData sx={{ fontWeight: 'bold' }}>{item}</TableLeftData>
           </Grid>
-          <Grid container sx={{ borderBottom: '1px solid black' }}>
-            {item.contents.map((content, idx) => (
-              <Grid item xs={10}>
-                <TableLeftData>
-                  {idx + 1}. {content}
-                </TableLeftData>
-              </Grid>
-            ))}
+          <Grid item xs={2}>
+            <TableLabel sx={{ color: cleanData.readability[item].score === 20 ? '#4557FE' : '#ED2418' }}>
+              {cleanData.readability[item].score}/20
+            </TableLabel>
           </Grid>
-        </>
+        </Grid>
       ))}
     </Container>
   );

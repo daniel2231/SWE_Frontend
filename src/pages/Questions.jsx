@@ -1,4 +1,5 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import styled from '@emotion/styled';
 import ResponsiveAppBar from '../components/common/Appbar/Appbar';
 import CustomEditor from '../components/CustomEditor/CustomEditor';
@@ -6,9 +7,36 @@ import LeftBlock from '../components/Main/LeftBlock/LeftBlock';
 import ReturnValueContext from '../context/ReturnValueContext';
 import ReturnErrorContext from '../context/ReturnErrorContext';
 import CurrentCodeLabelNumberContext from '../context/CurrentCodeLabelNumberContext';
+import TestcaseResultsContext from '../context/TestcaseResultsContext';
+
+
 
 const Questions = () => {
+  const { id } = useParams();
+  const [contentValue, setContentValue] = React.useState('');
+  const [skeletonCodeValue, setSkeletonCodeValue] = React.useState('');
+  const [problemNameValue, setProblemNameValue] = React.useState('');
+  const [problemRestrictionValue, setProblemRestrictionValue] = React.useState('');
   const [returnValue, setReturnValue] = React.useState('');
+
+  const [testCaseArray, setTestCaseArray] = React.useState([]);
+
+  React.useEffect(() => {
+    Promise.all([
+      fetch(`http://127.0.0.1:8000/questions/${id}/`),
+      fetch(`http://127.0.0.1:8000/unittests/${id}/`)
+    ])
+
+      .then(([resData, resUnittest]) => Promise.all([resData.json(), resUnittest.json()]))
+      .then(([resData, resUnittest]) => {
+        setContentValue(resData[0].problem_content);
+        setSkeletonCodeValue(resData[0].skeleton_code);
+        setProblemNameValue(resData[0].problem_name);
+        setProblemRestrictionValue(resData[0].problem_restrictions);
+        setTestCaseArray(resUnittest);
+      });
+  }, []);
+
   const returnValueValue = React.useMemo(
     () => ({
       returnValue,
@@ -16,6 +44,10 @@ const Questions = () => {
     }),
     [returnValue, setReturnValue]
   );
+
+  const [testcaseResult, setTestcaseResult] = React.useState([]);
+  /* eslint-disable */
+  const value = { testcaseResult, setTestcaseResult };
 
   const [returnError, setReturnError] = React.useState('');
   const returnErrorValue = React.useMemo(
@@ -38,12 +70,19 @@ const Questions = () => {
     <ReturnValueContext.Provider value={returnValueValue}>
       <ReturnErrorContext.Provider value={returnErrorValue}>
         <CurrentCodeLabelNumberContext.Provider value={currentCodeLabelNumberValue}>
-          <ResponsiveAppBar menuDisplay />
+          <TestcaseResultsContext.Provider value={value}>
+            <ResponsiveAppBar menuDisplay />
 
-          <MainContainer>
-            <LeftBlock />
-            <CustomEditor />
-          </MainContainer>
+            <MainContainer>
+              <LeftBlock
+                content={contentValue}
+                problemName={problemNameValue}
+                restrictions={problemRestrictionValue}
+                testcase={testCaseArray}
+              />
+              <CustomEditor skeletonCode={skeletonCodeValue} />
+            </MainContainer>
+          </TestcaseResultsContext.Provider>
         </CurrentCodeLabelNumberContext.Provider>
       </ReturnErrorContext.Provider>
     </ReturnValueContext.Provider>

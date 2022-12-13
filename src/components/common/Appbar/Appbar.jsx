@@ -64,7 +64,7 @@ const ResponsiveAppBar = ({ menuDisplay = false }) => {
               textDecoration: 'none'
             }}
           >
-            LOGO
+            SKKUCODE
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -127,7 +127,7 @@ const ResponsiveAppBar = ({ menuDisplay = false }) => {
           </Typography>
 
           <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-            <Link to="/questions" style={{ textDecoration: 'none' }}>
+            <Link to="/questions/1" style={{ textDecoration: 'none' }}>
               <Button
                 key="코딩테스트 연습"
                 onClick={handleCloseNavMenu}
@@ -156,7 +156,7 @@ const ResponsiveAppBar = ({ menuDisplay = false }) => {
                     fontSize: '13px'
                   }}
                 >
-                  &gt; 피보나치 수
+                  &gt; 숫자 비교
                 </Typography>
               </>
             )}

@@ -2,35 +2,36 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { Box, Grid, Typography } from '@mui/material';
 
-const EfficiencyTest = () => {
+const EfficiencyTest = (props) => {
+  const cleanData = props.data
   const efficiencyList = [
     {
       title: 'Line of Codes',
       intent: 'Line of Correct Code: 5 lines',
       yours: 'Line of Your Code: 5 lines',
-      totalScore: 20,
-      yourScore: 20
+      totalScore: 25,
+      yourScore: cleanData.metric.line_of_codes[0]
     },
     {
       title: 'Reservation Words',
       intent: 'Input: solution(3), Output: 2',
       yours: 'Your Output: 4',
-      totalScore: 20,
-      yourScore: 20
+      totalScore: 25,
+      yourScore: cleanData.metric.halstead_difficulty[0]
     },
     {
       title: 'Data Flow Complexity',
       intent: 'Input: solution(3)',
       yours: 'Output: 4',
-      totalScore: 20,
-      yourScore: 18
+      totalScore: 25,
+      yourScore: cleanData.metric.dataflow_complexity[0]
     },
     {
       title: 'Control Flow Complexity',
       intent: 'Input: solution(3), Output: 2',
       yours: 'Your Output: 4',
-      totalScore: 20,
-      yourScore: 15
+      totalScore: 25,
+      yourScore: cleanData.metric.controlflow_complexity[0]
     }
   ];
 

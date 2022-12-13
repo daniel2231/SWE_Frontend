@@ -9,11 +9,8 @@ import ReferenceContent from './ReferenceContent';
 import { getItem } from './localStorage';
 import CodeExplanation from './CodeExplanation';
 
-const ResultEditor = () => {
-  const goodCode = `def good(n):
-  print(n)
-good(1)
-  `;
+const ResultEditor = (props) => {
+  console.log(props.ansCode)
   const { state } = useLocation();
   const [myCode, setMyCode] = React.useState('');
   React.useEffect(() => {
@@ -30,7 +27,7 @@ good(1)
         height="36vh"
         defaultLanguage="python"
         original={myCode}
-        modified={goodCode}
+        modified={props.ansCode.answer}
         theme="vs-dark"
         options={{ readOnly: true }}
       />
@@ -38,7 +35,7 @@ good(1)
       <Title title="코드 설명 및 참고자료" />
       <Terminal>
         <Box sx={{ fontSize: '15px', borderRight: '1px solid black' }}>
-          <CodeExplanation />
+          <CodeExplanation myCode={props.myCode} />
         </Box>
         <Box sx={{ fontSize: '15px', overflow: 'auto' }}>
           <ReferenceContent />

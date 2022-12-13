@@ -1,21 +1,66 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useLocation, useParams } from 'react-router-dom';
 import styled from '@emotion/styled';
 import ResponsiveAppBar from '../components/common/Appbar/Appbar';
 import ResultEditor from '../components/CustomEditor/ResultEditor';
+
 // import ScoreBlock from '../components/Main/RightBlock/Result/ScoreBlock';
 import RightBlock from '../components/Main/RightBlock/RightBlock';
 
+// key: label number(1, 2, 3)
+// value: json-string format
+function getItem(key) {
+  const value = localStorage.getItem(key);
+  if (!value) return null;
+  return JSON.parse(value);
+}
+
 const Result = () => {
+  const { id } = useParams();
+  const { state } = useLocation();
+  const [resultData, setResultData] = React.useState([]);
+  const [questionData, setQuestionData] = React.useState([]);
+  const [loading, setLoading] = React.useState(true);
+  const [myCode] = React.useState(getItem(state.currentCodeLabelNumber));
+  useEffect(() => {
+    Promise.all([
+      fetch(`http://127.0.0.1:8000/result/${id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          code_submitted: myCode
+        })
+      }),
+      fetch(`http://127.0.0.1:8000/questions/${id}/`)
+    ])
+      .then(([resData, resAns]) => Promise.all([resData.json(), resAns.json()]))
+      .then(([resData, resAns]) => {
+        console.log(resData);
+        setResultData(resData);
+        setQuestionData(resAns[0]);
+      })
+      .then(() => {
+        setLoading(false);
+      });
+  }, []);
+
   return (
     <MainWrapper>
       <ResponsiveAppBar menuDisplay />
       <MainContainer>
         <ColumnContainer>
-          <RightBlock />
-          <ResultEditor />
+          {loading ? (
+            <div>loading...</div>
+          ) : (
+            <>
+              <RightBlock resultData={resultData} />
+                <ResultEditor ansCode={questionData} myCode={myCode} />
+            </>
+          )}
         </ColumnContainer>
       </MainContainer>
-      
     </MainWrapper>
   );
 };
